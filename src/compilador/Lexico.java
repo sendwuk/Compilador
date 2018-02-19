@@ -40,14 +40,13 @@ import java.util.ArrayList;
  * if           19 
  * while        20 
  * return       21
- *
+ * $            -3  <-- representa fin de la cadena
  */
 public class Lexico {
 
     private int estado, posicion;
     private StringBuilder simbolo;
     private ArrayList<Character> entrada;
-    public ArrayList<Simbolo> simbolos;
     public boolean valido;
 
     public Lexico(String entrada) {
@@ -151,10 +150,7 @@ public class Lexico {
                 case 3:// punto :v
                     if (esDigito(c)) {
                         sigEstado(4, simbolo, c);
-                    } else if (validChar(c)) {
-                        retroceso();
-                        continuar = false;
-                    } else {
+                    }else {
                         sigEstado(-1, simbolo, c);
                         continuar = false;
                         error(c);
@@ -382,7 +378,7 @@ public class Lexico {
         }//while
         if (estado == 0 && eof()) {
                 s.lexema = "$";
-                s.tipo = -1;
+                s.tipo = -3;
             } else if (estado > 0) {
                 //Inicio del automata de tipos
             switch (estado) {
@@ -480,7 +476,6 @@ public class Lexico {
                 s.lexema="Error Fatal";
                     s.tipo=-2;
             }
-        System.out.println("Lexema: "+s.lexema+" Tipo: "+s.tipo);
         return s;
     }
 
