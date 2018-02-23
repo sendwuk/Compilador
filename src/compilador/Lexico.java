@@ -40,7 +40,8 @@ import java.util.ArrayList;
  * if           19 
  * while        20 
  * return       21
- * $            -3  <-- representa fin de la cadena
+ * else         22
+ * $            23  <-- representa fin de la cadena
  */
 public class Lexico {
 
@@ -378,7 +379,7 @@ public class Lexico {
         }//while
         if (estado == 0 && eof()) {
                 s.lexema = "$";
-                s.tipo = -3;
+                s.tipo = 23;
             } else if (estado > 0) {
                 //Inicio del automata de tipos
             switch (estado) {
@@ -401,6 +402,10 @@ public class Lexico {
                 case "return":
                     s.lexema=simbolo.toString();
                     s.tipo=21;
+                    break;
+                case "else":
+                    s.lexema=simbolo.toString();
+                    s.tipo=22;
                     break;
                 default:
                     s.lexema=simbolo.toString();
