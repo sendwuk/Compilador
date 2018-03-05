@@ -14,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -43,8 +42,8 @@ public class Main implements Initializable {
     }
     @FXML
     private void analiza(ActionEvent event) {
-        Simbolo actual;
-     
+    /*    Simbolo actual;
+     salidaTxt.setText(null);
          Lexico lex= new Lexico(entradaTxt.getText());
            do{
                       actual=lex.sigSimbolo();
@@ -57,8 +56,9 @@ public class Main implements Initializable {
                      .append(System.getProperty("line.separator"));
             
          salidaTxt.setText(salida.toString());
-           }while(!"$".equals(actual.lexema));
-                  
+           }while(!"$".equals(actual.lexema));*/
+                  Sintactico s= new Sintactico(entradaTxt.getText());
+                  s.cargaArchivo();
         
     }
     }
