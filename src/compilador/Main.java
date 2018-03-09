@@ -5,6 +5,7 @@
  */
 package compilador;
 
+//import static compilador.Util.imprimeLn;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -42,24 +43,12 @@ public class Main implements Initializable {
     }
     @FXML
     private void analiza(ActionEvent event) {
-    /*    Simbolo actual;
      salidaTxt.setText(null);
-         Lexico lex= new Lexico(entradaTxt.getText());
-           do{
-                      actual=lex.sigSimbolo();
-              //System.out.println("Lexema: "+actual.lexema);
-              //System.out.println("Tipo: "+actual.tipo);
-            // simbolos.add(actual);
-            if(actual.tipo!=-1)
-            salida.append("Simbolo aceptado: ")
-                    .append(actual.lexema).append(" tipo: ").append(actual.tipo)
-                     .append(System.getProperty("line.separator"));
-            
-         salidaTxt.setText(salida.toString());
-           }while(!"$".equals(actual.lexema));*/
                   Sintactico s= new Sintactico(entradaTxt.getText());
-                  s.cargaArchivo();
-        
+                  if(s.analiza())
+                  salidaTxt.setText("Análisis Sintáctico sin errores\n");
+                  else salidaTxt.setText(" Error sintáctico\n");
+         
     }
     }
     
