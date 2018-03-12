@@ -6,6 +6,8 @@
 package compilador;
 
 //import static compilador.Util.imprimeLn;
+import static compilador.Util.imprime;
+import static compilador.Util.imprimeLn;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -44,10 +46,18 @@ public class Main implements Initializable {
     @FXML
     private void analiza(ActionEvent event) {
      salidaTxt.setText(null);
-                  Sintactico s= new Sintactico(entradaTxt.getText());
+     Lexico l= new Lexico(entradaTxt.getText());
+     Simbolo actual;
+     do{
+         actual=l.sigSimbolo();
+         imprime("Simbolo leido: ");imprimeLn(actual.lexema);
+         imprime("Tipo: ");imprimeLn(actual.tipo);
+     }while(!"$".equals(actual.lexema));
+     
+   /*               Sintactico s= new Sintactico(entradaTxt.getText());
                   if(s.analiza())
                   salidaTxt.setText("Análisis Sintáctico sin errores\n");
-                  else salidaTxt.setText(" Error sintáctico\n");
+                  else salidaTxt.setText(" Error sintáctico\n");*/
          
     }
     }

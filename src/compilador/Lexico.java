@@ -67,8 +67,7 @@ public class Lexico {
         valido=false;
         System.out.println( "Error lexico por el caracter: "+c);
     }
-   
-
+ 
     Simbolo sigSimbolo() {
         Simbolo s = new Simbolo();
         char c;
@@ -87,7 +86,6 @@ public class Lexico {
                         sigEstado(2, simbolo, c);
                     } else if (c == '"') {
                         sigEstado(5, simbolo, c);
-
                     } else if (esOperadorAdicion(c)) {
                         sigEstado(7, simbolo, c);
                         continuar = false;
@@ -123,7 +121,7 @@ public class Lexico {
                     }
                     break;
                 case 1:
-                    if (esLetra(c) || c == ' ' || esDigito(c)) {
+                    if (esLetra(c) || c == '_' || esDigito(c)) {
                         sigEstado(1, simbolo, c);
                     } else if (validChar(c)) {
                         retroceso();

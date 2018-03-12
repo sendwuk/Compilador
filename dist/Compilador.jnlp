@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Compilador.jar" size="10625" download="eager" />
+    <jar href="Compilador.jar" size="10901" download="eager" />
     <jar href="lib\richtextfx-demos-fat-0.7-M2.jar" size="823220" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Compilador" >

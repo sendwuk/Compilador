@@ -40,7 +40,7 @@ public class Sintactico {
 
     }
 
-    public boolean cargaArchivo() {
+     public final boolean cargaArchivo() {
         File archivo;
         Scanner s;
         StringTokenizer stringTokenizer;
@@ -81,20 +81,26 @@ public class Sintactico {
 
     public boolean analiza() {
         int fila, columna, accion, regla, i, j;
+        aceptacion = false;
         Simbolo actual;
         if (reglas.isEmpty()) {
-            return false;
+            imprimeLn("Reglas vacias");
+            return aceptacion;
         }
-        aceptacion = false;
         pila = new Stack();
         pila.push(FIN_PILA);
         pila.push("0");
         actual = lex.sigSimbolo();
+        imprimeLn("Simbolo leido: ");imprime(actual.lexema);
+        imprime(" Tipo: ");imprime(actual.tipo);
         while (!aceptacion) {
             try {
                 fila = Integer.parseInt(pila.peek());
+                imprime("Fila: ");imprime(fila);imprimeLn("");
                 columna = actual.tipo;
+                imprime("Comulna: ");imprime(columna);imprimeLn("");
                 accion = tablaLr[fila][columna];
+                imprimeLn("Accion: ");imprime(accion);
                 if (accion > 0) {
                     pila.push(actual.lexema);
                     pila.push(String.valueOf(accion));
