@@ -91,16 +91,16 @@ public class Sintactico {
         pila.push(FIN_PILA);
         pila.push("0");
         actual = lex.sigSimbolo();
-        imprimeLn("Simbolo leido: ");imprime(actual.lexema);
-        imprime(" Tipo: ");imprime(actual.tipo);
+        imprime("Simbolo leido: ");imprimeLn(actual.lexema);
+        imprime(" Tipo: ");imprimeLn(actual.tipo);
         while (!aceptacion) {
             try {
                 fila = Integer.parseInt(pila.peek());
-                imprime("Fila: ");imprime(fila);imprimeLn("");
+                imprime("Fila: ");imprimeLn(fila);
                 columna = actual.tipo;
-                imprime("Comulna: ");imprime(columna);imprimeLn("");
+                imprime("Comulna: ");imprimeLn(columna);
                 accion = tablaLr[fila][columna];
-                imprimeLn("Accion: ");imprime(accion);
+                imprime("Accion: ");imprimeLn(accion);
                 if (accion > 0) {
                     pila.push(actual.lexema);
                     pila.push(String.valueOf(accion));
