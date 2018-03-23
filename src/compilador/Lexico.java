@@ -44,11 +44,12 @@ import java.util.ArrayList;
  * $            23  <-- representa fin de la cadena
  */
 public class Lexico {
-
+    private final Character GUION_BAJO ='_';
     private int estado, posicion;
     private StringBuilder simbolo;
     private ArrayList<Character> entrada;
     public boolean valido;
+   
 
     public Lexico(String entrada) {
         int largo=entrada.length();
@@ -79,7 +80,7 @@ public class Lexico {
             switch (estado) {
                 case 0:
                     //ID
-                    if (esLetra(c) || c == '_') {
+                    if (esLetra(c) || c == GUION_BAJO) {
                         sigEstado(1, simbolo, c);
                     }//Entero
                     else if (esDigito(c)) {
@@ -108,8 +109,10 @@ public class Lexico {
                         sigEstado(18, simbolo, c);
                     } else if (c == '{') {
                         sigEstado(19, simbolo, c);
+                        continuar = false;
                     } else if (c == '}') {
                         sigEstado(20, simbolo, c);
+                        continuar = false;
                     }else if(esOperadorNot(c)){
                         sigEstado(21,simbolo,c);
                     }else if(c=='='||c=='!'){
@@ -121,7 +124,7 @@ public class Lexico {
                     }
                     break;
                 case 1:
-                    if (esLetra(c) || c == '_' || esDigito(c)) {
+                    if (esLetra(c) || c == GUION_BAJO || esDigito(c)) {
                         sigEstado(1, simbolo, c);
                     } else if (validChar(c)) {
                         retroceso();
@@ -324,11 +327,8 @@ public class Lexico {
                        error(c);
                     }
                     break;
-                case 19://llave izq
-                    if (c == '{') {
-                        sigEstado(19, simbolo, c);
-                        continuar = false;
-                    } else if (validChar(c)) {
+               /* case 19://llave izq
+                     if (validChar(c)) {
                         retroceso();
                         continuar = false;
                     } else {
@@ -338,10 +338,7 @@ public class Lexico {
                     }
                     break;
                 case 20: //llave der 
-                    if (c == '}') {
-                        sigEstado(20, simbolo, c);
-                        continuar = false;
-                    } else if (validChar(c)) {
+                    if (validChar(c)) {
                         retroceso();
                         continuar = false;
                     } else {
@@ -349,7 +346,7 @@ public class Lexico {
                         continuar = false;
                         error(c);
                     }
-                break;
+                break;*/
                 case 21: //operador !
                     if(validChar(c)){
                         retroceso();
