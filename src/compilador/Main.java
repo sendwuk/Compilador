@@ -24,6 +24,7 @@ import javafx.scene.layout.AnchorPane;
  * @author Bryan Josue Gonzalez Luna
  */
 public class Main implements Initializable {
+
     @FXML
     private AnchorPane lienzoPrincipal;
     @FXML
@@ -32,34 +33,38 @@ public class Main implements Initializable {
     private TextArea salidaTxt;
     @FXML
     private Button btnCompilar;
-    private ArrayList<Simbolo>simbolos;
+    private ArrayList<Simbolo> simbolos;
     private StringBuilder salida;
-    
-    
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        simbolos=new ArrayList<>();
-        salida= new StringBuilder();
-       
+        simbolos = new ArrayList<>();
+        salida = new StringBuilder();
+
     }
+
     @FXML
     private void analiza(ActionEvent event) {
-     salidaTxt.setText(null);
-     Lexico l= new Lexico(entradaTxt.getText());
-     Simbolo actual;
-     do{
-         actual=l.sigSimbolo();
-         imprime("Simbolo leido: ");imprimeLn(actual.lexema);
-         imprime("Tipo: ");imprimeLn(actual.tipo);
-     }while(!"$".equals(actual.lexema));
-     
-   /*               Sintactico s= new Sintactico(entradaTxt.getText());
-                  if(s.analiza())
-                  salidaTxt.setText("Análisis Sintáctico sin errores\n");
-                  else salidaTxt.setText(" Error sintáctico\n");*/
-         
-    }
-    }
-    
+        salidaTxt.setText(null);
 
+        testLexico();
+    }
+
+    private String testSintactico() {
+        Sintactico s = new Sintactico(entradaTxt.getText());
+        return (s.analiza()) ? "Aceptado" : "No Aceptado";
+    }
+
+    private void testLexico() {
+
+        Lexico l = new Lexico(entradaTxt.getText());
+        Simbolo actual;
+        do {
+            actual = l.sigSimbolo();
+            imprime("Simbolo leido: ");
+            imprimeLn(actual.lexema);
+            imprime("Tipo: ");
+            imprimeLn(actual.tipo);
+        } while (!"$".equals(actual.lexema));
+    }
+}
