@@ -19,7 +19,6 @@ import java.util.StringTokenizer;
  * @author Gonzalez Luna Bryan Josue
  */
 public class Sintactico {
-
     final String NOMBRE_ARCHIVO = "compilador.lr";
     final String FIN_PILA = "$";
     private Stack<String> pila;
@@ -37,7 +36,6 @@ public class Sintactico {
         idReglas = new ArrayList();
         longReglas = new ArrayList();
         cargaArchivo();
-
     }
 
      public final boolean cargaArchivo() {
@@ -92,7 +90,7 @@ public class Sintactico {
         pila.push("0");
         actual = lex.sigSimbolo();
         imprime("Simbolo leido: ");imprimeLn(actual.lexema);
-        imprime(" Tipo: ");imprimeLn(actual.tipo);
+        imprime("Tipo: ");imprimeLn(actual.tipo);
         while (!aceptacion) {
             try {
                 fila = Integer.parseInt(pila.peek());

@@ -31,10 +31,12 @@ public class Main implements Initializable {
     private TextArea entradaTxt;
     @FXML
     private TextArea salidaTxt;
-    @FXML
-    private Button btnCompilar;
     private ArrayList<Simbolo> simbolos;
     private StringBuilder salida;
+    @FXML
+    private Button btnAnalizaLexico;
+    @FXML
+    private Button btnAnalizaSintactico;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -43,28 +45,41 @@ public class Main implements Initializable {
 
     }
 
-    @FXML
-    private void analiza(ActionEvent event) {
-        salidaTxt.setText(null);
-
-        testLexico();
-    }
+  
 
     private String testSintactico() {
-        Sintactico s = new Sintactico(entradaTxt.getText());
+        imprimeLn("*************TEST LEXICO*****************");
+        Sintactico s = new Sintactico(entradaTxt.getText());        
         return (s.analiza()) ? "Aceptado" : "No Aceptado";
     }
 
-    private void testLexico() {
-
+    private String testLexico() {
         Lexico l = new Lexico(entradaTxt.getText());
         Simbolo actual;
         do {
+            imprimeLn("*************TEST LEXICO*****************");
             actual = l.sigSimbolo();
             imprime("Simbolo leido: ");
             imprimeLn(actual.lexema);
-            imprime("Tipo: ");
+            imprime("Tipo con numero: ");
             imprimeLn(actual.tipo);
+            imprime("Tipo con letra: ");
+            imprimeLn(l.getTipo(actual.tipo));
         } while (!"$".equals(actual.lexema));
+        return (l.valido)?"Aceptado":"No aceptado";
+    }
+
+    @FXML
+    private void analizaLexico(ActionEvent event) {
+           salidaTxt.setText(null);
+     String info = testLexico();
+     salidaTxt.setText(info);
+    }
+
+    @FXML
+    private void analizaSintactico(ActionEvent event) {
+           salidaTxt.setText(null);
+     String info = testSintactico();
+     salidaTxt.setText(info);
     }
 }
