@@ -21,7 +21,8 @@ import java.util.StringTokenizer;
 public class Sintactico {
     final String NOMBRE_ARCHIVO = "compilador.lr";
     final String FIN_PILA = "$";
-    private Stack<String> pila;
+    private Pila<String> pila;
+    private Pila<Simbolo> pilaSimbolos;
     private Lexico lex;
     private int filas, columnas;
     private boolean aceptacion;
@@ -85,25 +86,31 @@ public class Sintactico {
             imprimeLn("Reglas vacias");
             return aceptacion;
         }
-        pila = new Stack();
-        pila.push(FIN_PILA);
-        pila.push("0");
+        pila = new Pila();
+        pilaSimbolos = new Pila<>();
+        pila.apila(FIN_PILA);
+        pila.apila("0");
         actual = lex.sigSimbolo();
         imprime("Simbolo leido: ");imprimeLn(actual.lexema);
         imprime("Tipo: ");imprimeLn(actual.tipo);
         while (!aceptacion) {
+            imprimeLn("**********Estado de la pila*******************");
+            imprime(pila.muestra());
+            imprimeLn("**********************************************");
             try {
-                fila = Integer.parseInt(pila.peek());
+                fila = Integer.parseInt(pila.tope());
                 imprime("Fila: ");imprimeLn(fila);
                 columna = actual.tipo;
-                imprime("Comulna: ");imprimeLn(columna);
+                imprime("Columna: ");imprimeLn(columna);
                 accion = tablaLr[fila][columna];
                 imprime("Accion: ");imprimeLn(accion);
                 if (accion > 0) {
-                    pila.push(actual.lexema);
-                    pila.push(String.valueOf(accion));
+                    imprimeLn("Accion >0");
+                    pila.apila(actual.lexema);
+                    pila.apila(String.valueOf(accion));
                     actual = lex.sigSimbolo();
                 } else if (accion < 0) {
+                    imprimeLn("Accion <0");
                     if (accion == -1) {
                         imprimeLn("Accion -1");
                         aceptacion = true;
@@ -111,18 +118,23 @@ public class Sintactico {
                     }
                     regla = (-1) * (accion + 2);
                     //imprime regla
-                    //imprime longitu de regla longReglas.get(regla);
+                    imprime("Regla: ");imprimeLn(regla);
+                    imprime("Longitud regla: ");imprimeLn(longReglas.get(regla));
+                    //imprime longitud de regla longReglas.get(regla);
+                    imprimeLn("**************POP'S********************");
                     for (i = 0, j = longReglas.get(regla); i < j; i++) {
-                        pila.pop();
-                        pila.pop();
+                        System.out.println(pila.desapila());
+                        System.out.println(pila.desapila());
                     }
                     //imprime pop*(i*2)
-                    fila = Integer.parseInt(pila.peek());
+                    imprime("pop: ");imprimeLn(i*2);
+                    fila = Integer.parseInt(pila.tope());
                     columna = idReglas.get(regla);
                     accion = tablaLr[fila][columna];
-                    pila.push(reglas.get(regla));
-                    pila.push(String.valueOf(accion));
+                    pila.apila(reglas.get(regla));
+                    pila.apila(String.valueOf(accion));
                 } else {
+                    imprimeLn("Else");
                     break;
                 }
 
