@@ -6,6 +6,7 @@
 
 package compilador;
 
+import java.util.Iterator;
 import java.util.Stack;
 
 /**
@@ -30,5 +31,15 @@ public class Pila<Objeto> {
         pila.pop();
         return extraido;
     }
-
+    public int size(){
+    return pila.size();
+    }
+    public String muestra(){
+        	Iterator<Objeto>i=pila.iterator();
+		StringBuilder info = new StringBuilder();
+		while(i.hasNext()) {
+			info.append(i.next().toString()).append("\n");
+		}
+		return info.toString();
+    }
 }
