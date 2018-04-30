@@ -48,7 +48,7 @@ public class Main implements Initializable {
   
 
     private String testSintactico() {
-        imprimeLn("*************TEST LEXICO*****************");
+        imprimeLn("*************TEST SINTACTICO*****************");
         Sintactico s = new Sintactico(entradaTxt.getText());        
         return (s.analiza()) ? "Aceptado" : "No Aceptado";
     }
