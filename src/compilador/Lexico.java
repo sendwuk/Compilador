@@ -387,7 +387,7 @@ public class Lexico {
 			}//Fin del automata
 		}//while
 		if (estado == 0 && eof()) {
-			inicializa(s,"$",-3);
+			inicializa(s,"$",23);
 		} else if (estado > 0) {
 			//Inicio del automata de tipos
 			switch (estado) {
@@ -407,6 +407,9 @@ public class Lexico {
 				case "return":
 					inicializa(s,simbolo.toString(),21);
 					break;
+                                case "else":
+                                    inicializa(s,simbolo.toString(),22);
+                                    break;
 				default:
 					inicializa(s,simbolo.toString(),0);
 					break;
@@ -457,10 +460,10 @@ public class Lexico {
 			case 20:
 				inicializa(s,simbolo.toString(),17);
 				break;
-			case 21:
+			case 21://OpNot
 				inicializa(s,simbolo.toString(),10);
 				break;
-			case 22:
+			case 22://OpIgualdad
 				inicializa(s,simbolo.toString(),11);
 				break;
 			default:
