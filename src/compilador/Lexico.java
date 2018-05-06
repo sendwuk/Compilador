@@ -40,7 +40,7 @@ import java.util.ArrayList;
  * else         22 
  * $            23 <--representa fin de la cadena
  */
-public class Lexico {
+public class Lexico  implements Constantes{
     private int estado, posicion;
     private StringBuilder simbolo;
     private ArrayList<Character> entrada;
@@ -78,6 +78,7 @@ public class Lexico {
 		simbolo.delete(0,simbolo.length());
 		while (continuar && !eof()) {
 			c = nextChar();
+                        imprime("Estado: "+estado);
 			switch (estado) {
 			case 0:
 				//ID
@@ -111,11 +112,13 @@ public class Lexico {
 				} else if (c == '{') {
 					sigEstado(19, simbolo, c);
 				} else if (c == '}') {
-					sigEstado(20, simbolo, c);					
-				}else if (c=='='){
-					sigEstado(22,simbolo,c);
+					sigEstado(20, simbolo, c);
 				}else  if(esOperadorNot(c)){
 					sigEstado(21,simbolo,c);
+				}else if (c=='='){
+                                    imprime("Hola :v");
+					sigEstado(22,simbolo,c);
+                                        imprimeLn("Hi");
 				}else if (c != ' ' && c != '\n' && c != '\t') {
 					sigEstado(-1, simbolo, c);
 					continuar = false;
@@ -371,12 +374,14 @@ public class Lexico {
 				}
 				break;
 			case 22: //op asig
+                            imprime("Case 22");
 				if(c=='='){
+                                    imprime("IF");
 					sigEstado(22,simbolo,c);
 					continuar=false;
 				}else if(validChar(c)){
-					System.out.println("Valid char");
-					sigEstado(21,simbolo,c);
+                                    imprime("Else if");
+					sigEstado(23,simbolo,' ');
 					continuar=false;
 				}else{
 					sigEstado(-1, simbolo, c);
@@ -387,7 +392,7 @@ public class Lexico {
 			}//Fin del automata
 		}//while
 		if (estado == 0 && eof()) {
-			inicializa(s,"$",23);
+			inicializa(s,"$",$);
 		} else if (estado > 0) {
 			//Inicio del automata de tipos
 			switch (estado) {
@@ -396,82 +401,87 @@ public class Lexico {
 				case "void":
 				case "int":
 				case "float":
-					inicializa(s,simbolo.toString(),4);
+					inicializa(s,simbolo.toString(),
+                                                TIPO_DATO);
 					break;
 				case "if":
-					inicializa(s,simbolo.toString(),19);
+					inicializa(s,simbolo.toString(),IF);
 					break;
 				case "while":
-					inicializa(s,simbolo.toString(),20);
+					inicializa(s,simbolo.toString(),WHILE);
 					break;
 				case "return":
-					inicializa(s,simbolo.toString(),21);
+					inicializa(s,simbolo.toString(),RETURN);
 					break;
                                 case "else":
-                                    inicializa(s,simbolo.toString(),22);
+                                    inicializa(s,simbolo.toString(),ELSE);
                                     break;
 				default:
-					inicializa(s,simbolo.toString(),0);
+					inicializa(s,simbolo.toString(),
+                                                IDENTIFICADOR);
 					break;
 				}
 				break;
 			case 2://entero
-				inicializa(s,simbolo.toString(),1);
+				inicializa(s,simbolo.toString(),ENTERO);
 				break;
 			case 4://real
-				inicializa(s,simbolo.toString(),2);
+				inicializa(s,simbolo.toString(),REAL);
 				break;
 			case 6://cadena
-				inicializa(s,simbolo.toString(),3);
+				inicializa(s,simbolo.toString(),CADENA);
 				break;
 			case 7://suma resta
-				inicializa(s,simbolo.toString(),5);
+				inicializa(s,simbolo.toString(),OP_SUMA);
 				break;
 			case 8://mul div
-				inicializa(s,simbolo.toString(),6);
+				inicializa(s,simbolo.toString(),OP_MUL);
 				break;
 			case 9:// < >
 			case 10:
-				inicializa(s,simbolo.toString(),7);
+				inicializa(s,simbolo.toString(),OP_RELAC);
 				break;
 			case 11:// OP OR
 			case 12:
-				inicializa(s,simbolo.toString(),8);
+				inicializa(s,simbolo.toString(),OP_OR);
 				break;
 			case 13: //OP AND
 			case 14:
-				inicializa(s,simbolo.toString(),9);
+				inicializa(s,simbolo.toString(),OP_AND);
 				break;
 			case 15://;
-				inicializa(s,simbolo.toString(),12);
+				inicializa(s,simbolo.toString(),PUNTO_Y_COMA);
 				break;
 			case 16://,
-				inicializa(s,simbolo.toString(),13);
+				inicializa(s,simbolo.toString(),COMA);
 				break;
 			case 17://(
-				inicializa(s,simbolo.toString(),14);
+				inicializa(s,simbolo.toString(),PARENTESIS_IZQ);
 				break;
 			case 18://)
-				inicializa(s,simbolo.toString(),15);
+				inicializa(s,simbolo.toString(),PARENTESIS_DER);
 				break;
 			case 19://{
-				inicializa(s,simbolo.toString(),16);
+				inicializa(s,simbolo.toString(),LLAVE_IZQ);
 				break;
 			case 20:
-				inicializa(s,simbolo.toString(),17);
+				inicializa(s,simbolo.toString(),LLAVE_DER);
 				break;
 			case 21://OpNot
-				inicializa(s,simbolo.toString(),10);
+				inicializa(s,simbolo.toString(),OP_NOT);
 				break;
 			case 22://OpIgualdad
-				inicializa(s,simbolo.toString(),11);
+				inicializa(s,simbolo.toString(),OP_IGUALDAD);
 				break;
+                        case 23://=
+                            inicializa(s,simbolo.toString(),IGUAL);
+                            break;
 			default:
-				inicializa(s,simbolo.toString(),-1);
+				inicializa(s,simbolo.toString(),ERROR);
 				break;
 			}
 		} else {
-			inicializa(s,simbolo.toString(),-2);
+			inicializa(s,simbolo.toString(),ERROR_FATAL);
 		}
 		return s;
 	}
@@ -549,29 +559,30 @@ public class Lexico {
     public String getTipo(int tipo){
         String info;
         switch(tipo){
-            case -3: info="Fin de entrada";break;
-            case 0: info="Identificador";break;
-            case 1: info="Entero";break;
-            case 2: info="Real";break;
-            case 3: info="Cadena";break;
-            case 4: info="TipoDato";break;
-            case 5: info="OpSuma";break;
-            case 6: info="OpMul";break;
-            case 7: info="OpRelac";break;
-            case 8: info="OpOr";break;
-            case 9: info="OpAnd"; break;
-            case 10: info="OpNot";break;
-            case 11: info="OpIgualdad";break;
-            case 12: info="Delimitador";break;
-            case 13: info="Coma";break;
-            case 14: info="ParentesisIzq";break;
-            case 15: info="ParentesisDer";break;
-            case 16: info="LlaveIzq";break;
-            case 17: info="LlaveDer";break;
-            case 19: info="IF";break;
-            case 20: info="While";break;
-            case 21: info="Return";break;
-            case 22: info="Else";break;
+            case IDENTIFICADOR: info="Identificador";break;
+            case ENTERO: info="Entero";break;
+            case REAL: info="Real";break;
+            case CADENA: info="Cadena";break;
+            case TIPO_DATO: info="TipoDato";break;
+            case OP_SUMA: info="OpSuma";break;
+            case OP_MUL: info="OpMul";break;
+            case OP_RELAC: info="OpRelac";break;
+            case OP_OR: info="OpOr";break;
+            case OP_AND: info="OpAnd"; break;
+            case OP_NOT: info="OpNot";break;
+            case OP_IGUALDAD: info="OpIgualdad";break;
+            case PUNTO_Y_COMA: info="Delimitador";break;
+            case COMA: info="Coma";break;
+            case PARENTESIS_IZQ: info="ParentesisIzq";break;
+            case PARENTESIS_DER: info="ParentesisDer";break;
+            case LLAVE_IZQ: info="LlaveIzq";break;
+            case LLAVE_DER: info="LlaveDer";break;
+            case IGUAL: info="Igual";break;
+            case IF: info="IF";break;
+            case WHILE: info="While";break;
+            case RETURN: info="Return";break;
+            case ELSE: info="Else";break;
+            case $: info="Fin de entrada";break;
             default: info="Desconocido";break;
         }
     return info;
