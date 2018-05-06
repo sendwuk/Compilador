@@ -10,15 +10,16 @@ package compilador;
  * @author Bryan Josue Gonzalez Luna
  */
 public interface Constantes {
-    
-    public final int INDENTIFICADOR=0;
+    public final int ERROR_FATAL=-2;
+    public final int ERROR=-1;
+    public final int IDENTIFICADOR=0;
     public final int ENTERO=1;
     public final int REAL=2;
     public final int CADENA=3;
     public final int TIPO_DATO=4;
     public final int OP_SUMA=5;
     public final int OP_MUL=6;
-    public final int OP_REALC=7;
+    public final int OP_RELAC=7;
     public final int OP_OR=8;
     public final int OP_AND=9;
     public final int OP_NOT=10;
