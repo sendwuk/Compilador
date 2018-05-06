@@ -105,12 +105,10 @@ public class Sintactico {
                 accion = tablaLr[fila][columna];
                 imprime("Accion: ");imprimeLn(accion);
                 if (accion > 0) {
-                    imprimeLn("Accion >0");
                     pila.apila(actual.lexema);
                     pila.apila(String.valueOf(accion));
                     actual = lex.sigSimbolo();
                 } else if (accion < 0) {
-                    imprimeLn("Accion <0");
                     if (accion == -1) {
                         imprimeLn("Accion -1");
                         aceptacion = true;
@@ -118,16 +116,17 @@ public class Sintactico {
                     }
                     regla = (-1) * (accion + 2);
                     //imprime regla
-                    imprime("Regla: ");imprimeLn(regla);
+                    imprime("Regla: ");imprimeLn(regla+1);
                     imprime("Longitud regla: ");imprimeLn(longReglas.get(regla));
                     //imprime longitud de regla longReglas.get(regla);
                     imprimeLn("**************POP'S********************");
                     for (i = 0, j = longReglas.get(regla); i < j; i++) {
-                        System.out.println(pila.desapila());
-                        System.out.println(pila.desapila());
+                        imprimeLn("PoP:"+pila.desapila());
+                        imprimeLn("PoP:"+pila.desapila());
                     }
+                    imprimeLn("*************************");
                     //imprime pop*(i*2)
-                    imprime("pop: ");imprimeLn(i*2);
+                    imprime("cant de pops: ");imprimeLn(i*2);
                     fila = Integer.parseInt(pila.tope());
                     columna = idReglas.get(regla);
                     accion = tablaLr[fila][columna];
