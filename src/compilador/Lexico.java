@@ -6,8 +6,10 @@
 package compilador;
 
 import static compilador.Util.imprime;
-import static compilador.Util.imprimeLn;
 import java.util.ArrayList;
+import static compilador.Util.imprimeln;
+import static compilador.Util.imprimeln;
+import static compilador.Util.imprimeln;
 
 /**
  *
@@ -61,7 +63,6 @@ public class Lexico  implements Constantes{
 
 	void error(char c) {
 		valido=false;
-
 		System.err.println("Estado actual "+estado+" Error lexico por el caracter: "+c);
 	}
 	void inicializa(Simbolo s,String lexema,int tipo) {
@@ -78,7 +79,6 @@ public class Lexico  implements Constantes{
 		simbolo.delete(0,simbolo.length());
 		while (continuar && !eof()) {
 			c = nextChar();
-                        imprime("Estado: "+estado);
 			switch (estado) {
 			case 0:
 				//ID
@@ -116,9 +116,7 @@ public class Lexico  implements Constantes{
 				}else  if(esOperadorNot(c)){
 					sigEstado(21,simbolo,c);
 				}else if (c=='='){
-                                    imprime("Hola :v");
 					sigEstado(22,simbolo,c);
-                                        imprimeLn("Hi");
 				}else if (c != ' ' && c != '\n' && c != '\t') {
 					sigEstado(-1, simbolo, c);
 					continuar = false;
@@ -374,14 +372,12 @@ public class Lexico  implements Constantes{
 				}
 				break;
 			case 22: //op asig
-                            imprime("Case 22");
 				if(c=='='){
-                                    imprime("IF");
 					sigEstado(22,simbolo,c);
 					continuar=false;
 				}else if(validChar(c)){
-                                    imprime("Else if");
 					sigEstado(23,simbolo,' ');
+                                        retroceso();
 					continuar=false;
 				}else{
 					sigEstado(-1, simbolo, c);
@@ -392,7 +388,7 @@ public class Lexico  implements Constantes{
 			}//Fin del automata
 		}//while
 		if (estado == 0 && eof()) {
-			inicializa(s,"$",$);
+			inicializa(s,"$",FIN_ENTRADA);
 		} else if (estado > 0) {
 			//Inicio del automata de tipos
 			switch (estado) {
@@ -582,7 +578,7 @@ public class Lexico  implements Constantes{
             case WHILE: info="While";break;
             case RETURN: info="Return";break;
             case ELSE: info="Else";break;
-            case $: info="Fin de entrada";break;
+            case FIN_ENTRADA: info="Fin de entrada";break;
             default: info="Desconocido";break;
         }
     return info;

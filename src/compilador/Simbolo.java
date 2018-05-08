@@ -13,5 +13,9 @@ package compilador;
 public class Simbolo {
     public String lexema;
     public int tipo;
+    @Override
+    public String toString(){
+        return lexema;
+    }
 
 }

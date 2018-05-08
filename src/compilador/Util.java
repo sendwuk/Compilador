@@ -10,16 +10,16 @@ package compilador;
  * @author Gonzalez Luna Bryan Josue
  */
 public  class Util {
-    public static void imprimeLn(String text) {
+    public static void imprimeln(String text) {
         System.out.println(text);
     }
-    public static void imprimeLn(int text) {
+    public static void imprimeln(int text) {
         System.out.println(text);
     }
-    public static void imprimeLn(char text) {
+    public static void imprimeln(char text) {
         System.out.println(text);
     }
-    public static void imprimeLn(float text) {
+    public static void imprimeln(float text) {
         System.out.println(text);
     }
     public static void imprime(String text) {

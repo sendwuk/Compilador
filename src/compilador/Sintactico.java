@@ -6,19 +6,19 @@
 package compilador;
 
 import static compilador.Util.imprime;
-import static compilador.Util.imprimeLn;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Stack;
 import java.util.StringTokenizer;
+import static compilador.Util.imprimeln;
 
 /**
  *
  * @author Gonzalez Luna Bryan Josue
  */
-public class Sintactico {
+public class Sintactico implements Constantes {
+
     final String NOMBRE_ARCHIVO = "compilador.lr";
     final String FIN_PILA = "$";
     private Pila<String> pila;
@@ -33,13 +33,13 @@ public class Sintactico {
 
     public Sintactico(String entrada) {
         lex = new Lexico(entrada);
-        reglas = new ArrayList();
-        idReglas = new ArrayList();
-        longReglas = new ArrayList();
+        reglas = new ArrayList<>();
+        idReglas = new ArrayList<>();
+        longReglas = new ArrayList<>();
         cargaArchivo();
     }
 
-     public final boolean cargaArchivo() {
+    public final boolean cargaArchivo() {
         File archivo;
         Scanner s;
         StringTokenizer stringTokenizer;
@@ -73,7 +73,7 @@ public class Sintactico {
             s.close();
             return true;
         } catch (FileNotFoundException e) {
-            imprimeLn(e.getMessage());
+            imprimeln(e.getMessage());
             return false;
         }
     }
@@ -83,64 +83,60 @@ public class Sintactico {
         aceptacion = false;
         Simbolo actual;
         if (reglas.isEmpty()) {
-            imprimeLn("Reglas vacias");
+            imprimeln("Reglas vacias");
             return aceptacion;
         }
-        pila = new Pila();
+        pila = new Pila<>();
         pilaSimbolos = new Pila<>();
         pila.apila(FIN_PILA);
         pila.apila("0");
         actual = lex.sigSimbolo();
-        imprime("Simbolo leido: ");imprimeLn(actual.lexema);
-        imprime("Tipo: ");imprimeLn(actual.tipo);
+        imprime("Simbolo leido: ");
+        imprimeln(actual.lexema);
+        imprime("Tipo: ");
+        imprimeln(lex.getTipo(actual.tipo));
         while (!aceptacion) {
-            imprimeLn("**********Estado de la pila*******************");
-            imprime(pila.muestra());
-            imprimeLn("**********************************************");
             try {
                 fila = Integer.parseInt(pila.tope());
-                imprime("Fila: ");imprimeLn(fila);
                 columna = actual.tipo;
-                imprime("Columna: ");imprimeLn(columna);
                 accion = tablaLr[fila][columna];
-                imprime("Accion: ");imprimeLn(accion);
                 if (accion > 0) {
                     pila.apila(actual.lexema);
                     pila.apila(String.valueOf(accion));
                     actual = lex.sigSimbolo();
+                    imprime("Simbolo leido: ");
+                    imprimeln(actual.lexema);
+                    imprime("Tipo: ");
+                    imprimeln(lex.getTipo(actual.tipo));
                 } else if (accion < 0) {
                     if (accion == -1) {
-                        imprimeLn("Accion -1");
                         aceptacion = true;
                         break;
                     }
                     regla = (-1) * (accion + 2);
-                    //imprime regla
-                    imprime("Regla: ");imprimeLn(regla+1);
-                    imprime("Longitud regla: ");imprimeLn(longReglas.get(regla));
-                    //imprime longitud de regla longReglas.get(regla);
-                    imprimeLn("**************POP'S********************");
                     for (i = 0, j = longReglas.get(regla); i < j; i++) {
-                        imprimeLn("PoP:"+pila.desapila());
-                        imprimeLn("PoP:"+pila.desapila());
+                        Simbolo s= new Simbolo();
+                        pila.desapila();
+                        s.lexema=pila.desapila();
+                        pilaSimbolos.apila(s);
                     }
-                    imprimeLn("*************************");
-                    //imprime pop*(i*2)
-                    imprime("cant de pops: ");imprimeLn(i*2);
                     fila = Integer.parseInt(pila.tope());
                     columna = idReglas.get(regla);
                     accion = tablaLr[fila][columna];
                     pila.apila(reglas.get(regla));
                     pila.apila(String.valueOf(accion));
                 } else {
-                    imprimeLn("Else");
+                    imprimeln("Error no aceptado");
                     break;
                 }
-
             } catch (IndexOutOfBoundsException e) {
                 imprime(e.getMessage());
             }
         }
+        imprimeln("*******************Pila simbolos************");
+        imprime(pilaSimbolos.muestra());
+        imprimeln("***************************");
+       // generarArbol(pilaSimbolos);
         return aceptacion;
     }
 
@@ -158,6 +154,14 @@ public class Sintactico {
 
     public int[][] getTablaLr() {
         return tablaLr;
+    }
+    private void generarArbol(Pila<Simbolo> pila){
+        String accion=pila.desapila().lexema;
+        //imprimeln("Generando Arbol");
+        imprimeln("<Programa>");
+        imprimeln(accion);
+        imprimeln("</Programa>");
+        
     }
 
 }

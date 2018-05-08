@@ -13,7 +13,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem fx:id="btnClose" mnemonicParsing="false" onAction="#cerrarVentana" text="Close" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
@@ -23,7 +23,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="btnAbout" mnemonicParsing="false" onAction="#mostrarMiInfo" text="About" />
             </items>
           </Menu>
         </menus>

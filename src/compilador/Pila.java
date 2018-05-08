@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package compilador;
 
 import java.util.Iterator;
@@ -15,31 +14,47 @@ import java.util.Stack;
  * @param <Objeto>
  */
 public class Pila<Objeto> {
+
     Stack<Objeto> pila;
-    Pila(){
-        pila= new Stack<>();
+
+    Pila() {
+        pila = new Stack<>();
     }
-    public Objeto tope(){
-        Objeto extraido=pila.peek();
+
+    public Objeto tope() {
+        Objeto extraido = pila.peek();
         return extraido;
     }
-    public void apila(Objeto o){
-    pila.push(o);
+
+    public void apila(Objeto o) {
+        pila.push(o);
     }
-    public Objeto desapila(){
-        Objeto extraido=pila.peek();
-        pila.pop();
-        return extraido;
+
+    public Objeto desapila() {
+        if (!vacia()) {
+            Objeto extraido = pila.peek();
+            pila.pop();
+            return extraido;
+        }
+        return null;
     }
-    public int size(){
-    return pila.size();
+
+    public int size() {
+        return pila.size();
     }
-    public String muestra(){
-        	Iterator<Objeto>i=pila.iterator();
-		StringBuilder info = new StringBuilder();
-		while(i.hasNext()) {
-			info.append(i.next().toString()).append("\n");
-		}
-		return info.toString();
+
+    public String muestra() {
+        String info = "Pila Vacia\n";
+        if (!vacia()) {
+            Iterator<Objeto> i = pila.iterator();
+            while (i.hasNext()) {
+                info = i.next().toString() + "\n" + info;
+            }
+        }
+        return info;
+    }
+
+    public boolean vacia() {
+        return pila.empty();
     }
 }
