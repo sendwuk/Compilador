@@ -32,6 +32,10 @@ public class NoTerminal extends ElementoPila{
     public Nodo getNodo(){
         return nodo;
     }
+    @Override
+    public String toString(){
+        return lexema;
+    }
     
 
   

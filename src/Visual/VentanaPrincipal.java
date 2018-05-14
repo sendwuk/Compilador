@@ -5,11 +5,10 @@ package Visual;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 //import static compilador.Util.imprimeLn;
 import Lexico.Lexico;
 import Contenedores.Simbolo;
+import Interfaces.Nodo;
 import Sintactico.Sintactico;
 import static Util.Util.imprime;
 import java.net.URL;
@@ -49,6 +48,8 @@ public class VentanaPrincipal implements Initializable {
     private MenuItem btnClose;
     @FXML
     private MenuItem btnAbout;
+    @FXML
+    private Button btnArbol;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -57,13 +58,23 @@ public class VentanaPrincipal implements Initializable {
 
     }
 
-  
-
     private String testSintactico() {
         imprimeln("*************TEST SINTACTICO*****************");
         salidaTxt.setText("Analizando entrada...");
-        Sintactico s = new Sintactico(entradaTxt.getText());        
+        Sintactico s = new Sintactico(entradaTxt.getText());
         return (s.analiza()) ? "Aceptado" : "No Aceptado";
+    }
+
+    private String testSintacticoArbol() {
+        imprimeln("*************TEST SINTACTICO ÁRBOL*****************");
+        salidaTxt.setText("Analizando entrada...");
+        Nodo grover;
+        Sintactico s = new Sintactico(entradaTxt.getText());
+        grover=s.analizaArbol();
+        if(grover!=null)
+            return grover.getArbol();
+        return "No Aceptado";
+
     }
 
     private String testLexico() {
@@ -79,21 +90,28 @@ public class VentanaPrincipal implements Initializable {
             imprime("Tipo con letra: ");
             imprimeln(l.getTipo(actual.tipo));
         } while (!"$".equals(actual.lexema));
-        return (l.valido)?"Aceptado":"No aceptado";
+        return (l.valido) ? "Aceptado" : "No aceptado";
     }
 
     @FXML
     private void analizaLexico(ActionEvent event) {
-           salidaTxt.setText(" ");
-     String info = testLexico();
-     salidaTxt.setText(info);
+        salidaTxt.setText(" ");
+        String info = testLexico();
+        salidaTxt.setText(info);
     }
 
     @FXML
     private void analizaSintactico(ActionEvent event) {
-           salidaTxt.setText(null);
-     String info = testSintactico();
-     salidaTxt.setText(info);
+        salidaTxt.setText(null);
+        String info = testSintactico();
+        salidaTxt.setText(info);
+    }
+
+    @FXML
+    private void analizaArbolSintactico(ActionEvent event) {
+        salidaTxt.setText(null);
+        String info = testSintacticoArbol();
+        salidaTxt.setText(info);
     }
 
     @FXML
@@ -103,5 +121,7 @@ public class VentanaPrincipal implements Initializable {
 
     @FXML
     private void mostrarMiInfo(ActionEvent event) {
+
     }
+
 }

@@ -33,8 +33,8 @@ public class Programa extends Nodo implements Constantes {
     @Override
     public String getArbol() {
         String info = INICIO_PROGRAMA +NL;
-        if (definicion != null) info += definicion.getArbol();
-        info += FIN_PROGRAMA +NL;
+        if (definicion != null) info= definicion.getArbol()+info;
+        info = FIN_PROGRAMA +NL+info;
         return info;
     }
 

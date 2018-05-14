@@ -26,6 +26,10 @@ public class Terminal extends ElementoPila{
     public String getLexema() {
     	return lexema;
     }
+    @Override
+    public String toString(){
+        return lexema;
+    }
 
     
 }

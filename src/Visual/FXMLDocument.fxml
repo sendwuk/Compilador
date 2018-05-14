@@ -31,5 +31,6 @@
       <Button fx:id="btnAnalizaLexico" layoutX="451.0" layoutY="424.0" mnemonicParsing="false" onAction="#analizaLexico" text="Analisis Lexico" />
       <TextArea fx:id="salidaTxt" layoutX="31.0" layoutY="411.0" prefHeight="168.0" prefWidth="398.0" />
       <Button fx:id="btnAnalizaSintactico" layoutX="451.0" layoutY="458.0" mnemonicParsing="false" onAction="#analizaSintactico" text="Analisis Sintactico" />
+      <Button fx:id="btnArbol" layoutX="451.0" layoutY="495.0" mnemonicParsing="false" onAction="#analizaArbolSintactico" text="Árbol Sintáctico" />
    </children>
 </AnchorPane>

@@ -102,7 +102,7 @@ public interface Constantes {
     public final int DEF_LOCALES = 15;
     public final int DEF_LOCAL = 16;
     public final int DEF_LOCAL_R18 = 17;
-    public final int SENTENCIA = 19;
+    public final int SENTENCIAS = 19;
     public final int SENTENCIA_R21 = 20;
     public final int SENTENCIA_R22 = 21;
     public final int SENTENCIA_R23 = 22;
