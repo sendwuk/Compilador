@@ -95,7 +95,6 @@ public class Sintactico implements Constantes {
             return null;
         }
         pila = new Pila<>();
-        pilaSimbolos = new Pila<>();
         pila.apila(new Terminal(FIN_PILA));
         pila.apila(new Accion(0));
         actual = lex.sigSimbolo();
@@ -150,7 +149,6 @@ public class Sintactico implements Constantes {
         }
         Pila<String> pila;
         pila = new Pila<>();
-        pilaSimbolos = new Pila<>();
         pila.apila("$");
         pila.apila("0");
         actual = lex.sigSimbolo();
