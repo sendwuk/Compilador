@@ -10,6 +10,7 @@ import Interfaces.Nodo;
 import Interfaces.Constantes;
 import Interfaces.ElementoPila;
 import Contenedores.NoTerminal;
+import Semantico.Semantico;
 
 /**
  *
@@ -27,6 +28,11 @@ public class Definiciones extends Nodo implements Constantes {
         p.desapila();
         definicion = ((NoTerminal)p.desapila()).getNodo();
     }
+    
+    @Override
+    public int getID() {
+        return id;
+    }
 
     @Override
     public String getArbol() {
@@ -42,13 +48,17 @@ public class Definiciones extends Nodo implements Constantes {
     }
 
     @Override
-    public void validarSemanticamente(String tipoVar) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public char validarSemanticamente(String ambito,Semantico s) {
+        if(definicion!=null)definicion.validarSemanticamente(ambito,s);
+        if(definiciones!=null)definiciones.validarSemanticamente(ambito,s);
+        return OK;
     }
 
     @Override
-    public int getID() {
-        return id;
+    public void validarSemanticamente(String tipo, String tipoVar, Semantico s) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
 
 }

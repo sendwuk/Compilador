@@ -9,6 +9,7 @@ import Contenedores.NoTerminal;
 import Interfaces.Constantes;
 import Interfaces.ElementoPila;
 import Interfaces.Nodo;
+import Semantico.Semantico;
 import Util.Pila;
 /**
  *
@@ -24,6 +25,10 @@ public class DefinicionesLocales extends Nodo implements Constantes {
         p.desapila();
         defLocal=((NoTerminal)p.desapila()).getNodo();
     }
+     @Override
+    public int getID() {
+        return id;
+    }
 
     @Override
     public String getArbol() {
@@ -35,13 +40,15 @@ public class DefinicionesLocales extends Nodo implements Constantes {
     }
 
     @Override
-    public void validarSemanticamente(String tipoVar) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public char validarSemanticamente(String ambito, Semantico s) {
+        if(defLocal!=null)defLocal.validarSemanticamente(ambito, s);
+        if(defLocales!=null)defLocales.validarSemanticamente(ambito, s);
+     return OK;
     }
 
     @Override
-    public int getID() {
-        return id;
+    public void validarSemanticamente(String tipo, String ambito, Semantico s) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 

@@ -10,6 +10,7 @@ import Contenedores.Terminal;
 import Interfaces.Constantes;
 import Interfaces.ElementoPila;
 import Interfaces.Nodo;
+import Semantico.Semantico;
 import Util.Pila;
 
 /**
@@ -25,7 +26,12 @@ public class Sentencias extends Nodo implements Constantes {
         p.desapila();
         sentencia=((NoTerminal)p.desapila()).getNodo();
     }
-
+    
+    @Override
+    public int getID() {
+        return id;
+    }
+    
     @Override
     public String getArbol() {
         String info=INICIO_SENTENCIAS+NL;
@@ -34,15 +40,17 @@ public class Sentencias extends Nodo implements Constantes {
         info+=FIN_SENTENCIAS+NL;
         return info;
     }
-
+    
     @Override
-    public void validarSemanticamente(String tipoVar) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public char validarSemanticamente(String ambito, Semantico s) {
+        if(sentencias!=null)sentencias.validarSemanticamente(ambito, s);
+        if(sentencia!=null)sentencia.validarSemanticamente(ambito, s);
+        return OK;
     }
 
     @Override
-    public int getID() {
-        return id;
+    public void validarSemanticamente(String tipo, String ambito, Semantico s) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

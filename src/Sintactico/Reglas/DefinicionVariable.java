@@ -12,6 +12,8 @@ import Interfaces.Constantes;
 import Interfaces.ElementoPila;
 import Contenedores.NoTerminal;
 import Contenedores.Terminal;
+import Contenedores.Token;
+import Semantico.Semantico;
 
 /**
  *
@@ -31,6 +33,10 @@ public class DefinicionVariable extends Nodo implements Constantes {
 		p.desapila();
 		tipoVar=((Terminal)p.desapila()).getLexema();
 	}
+        @Override
+	public int getID() {
+		return id;
+	}
 
 	@Override
 	public String getArbol() {
@@ -42,15 +48,21 @@ public class DefinicionVariable extends Nodo implements Constantes {
 	}
 
 	@Override
-	public void validarSemanticamente(String tipoVar) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-	}
-
-	@Override
-	public int getID() {
-		return id;
-	}
-	public String getIdVar() {
+	public char validarSemanticamente(String ambito,Semantico s) {
+		if(s.existeVar(idVar,ambito)) {
+                s.insertarError(ERROR_VARIABLE_REDEFINIDA,idVar);
+                }else {
+                    s.insertarToken(new Token(idVar,tipoVar,ambito));
+            	}
+                if(listaVariables!=null)
+                    listaVariables.validarSemanticamente(tipoVar,ambito, s);
+                return OK;
+        }
+    @Override
+    public void validarSemanticamente(String tipo, String ambito, Semantico s) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    public String getIdVar() {
 		return idVar;
 	}
         public String getTipoVar(){

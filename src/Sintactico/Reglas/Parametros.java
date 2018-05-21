@@ -8,9 +8,11 @@ package Sintactico.Reglas;
 
 import Contenedores.NoTerminal;
 import Contenedores.Terminal;
+import Contenedores.Token;
 import Interfaces.Constantes;
 import Interfaces.ElementoPila;
 import Interfaces.Nodo;
+import Semantico.Semantico;
 import Util.Pila;
 
 /**
@@ -29,6 +31,10 @@ public class Parametros extends Nodo implements Constantes {
         p.desapila();
         tipoParam=((Terminal)p.desapila()).getLexema();
     }
+    @Override
+    public int getID() {
+        return id;
+    }
 
     @Override
     public String getArbol() {
@@ -38,15 +44,23 @@ public class Parametros extends Nodo implements Constantes {
         info+=FIN_PARAMETROS+NL;
         return info;
     }
-
     @Override
-    public void validarSemanticamente(String tipoVar) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public char validarSemanticamente(String ambito, Semantico s) {
+        if(s.existeVar(idParam, ambito)){
+            s.insertarError(ERROR_PARAMETRO_REDEFINIDO, idParam);
+        }else{
+            tokenGlobalAux= new Token(idParam,tipoParam,ambito);
+            tokenGlobalAux.agregarParametro(tipoParam.charAt(0));
+            s.insertarToken(tokenGlobalAux);
+        }
+        if(listaParam!=null){
+            listaParam.validarSemanticamente(tipoParam,ambito, s);
+        }
+        return OK;
     }
-
     @Override
-    public int getID() {
-        return id;
+    public void validarSemanticamente(String tipo, String ambito, Semantico s) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -5,6 +5,8 @@
  */
 package Interfaces;
 
+import Contenedores.Token;
+import Semantico.Semantico;
 import Util.Util;
 
 /**
@@ -12,13 +14,14 @@ import Util.Util;
  * @author Gonzalez Luna Bryan Josue
  */
 public abstract class Nodo extends Util implements Constantes {
-    //   public String tipoVar;
-    // public char tipo;
-    //public Simbolo simbolo;
+    public String ambito;
+    public String tipo;
+    public Token tokenGlobalAux;
     public abstract int getID();
 
     public abstract String getArbol();
 
-    public abstract void validarSemanticamente(String tipoVar);
+    public abstract char validarSemanticamente(String ambito,Semantico s);
+    public abstract void validarSemanticamente(String tipo,String ambito,Semantico s);
 
 }

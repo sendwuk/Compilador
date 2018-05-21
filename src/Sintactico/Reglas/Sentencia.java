@@ -10,6 +10,7 @@ import Contenedores.Terminal;
 import Interfaces.Constantes;
 import Interfaces.ElementoPila;
 import Interfaces.Nodo;
+import Semantico.Semantico;
 import Util.Pila;
 /**
  *
@@ -31,7 +32,11 @@ public class Sentencia extends Nodo implements Constantes{
         idSentencia=((Terminal)p.desapila()).getLexema();
     }
     
-
+    @Override
+    public int getID() {
+        return id;
+    }
+    
     @Override
     public String getArbol() {
         String info=INICIO_SENTENCIA+NL;
@@ -40,15 +45,27 @@ public class Sentencia extends Nodo implements Constantes{
         info+=FIN_SENTENCIA+NL;
         return info;
     }
-
+    
     @Override
-    public void validarSemanticamente(String tipoVar) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public char validarSemanticamente(String ambito, Semantico s) {
+        char tipoExpresion;
+        if(!s.existeVar(idSentencia,ambito) && !s.existeVar(idSentencia,AMBITO_LOCAL)){
+            s.insertarError(ERROR_VARIABLE_NO_DEFINIDA,idSentencia);
+        }
+        tipoExpresion=expresion.validarSemanticamente(ambito, s);
+        if(tipoExpresion==s.existeTipo(idSentencia,ambito) 
+                || tipoExpresion==s.existeTipo(idSentencia,AMBITO_LOCAL)){
+            return tipoExpresion;
+        }else{
+            s.insertarError(ERROR_TIPO_NO_COINCIDE,idSentencia);
+            return NOT_OK;
+        }
+        
     }
 
     @Override
-    public int getID() {
-        return id;
+    public void validarSemanticamente(String tipo, String ambito, Semantico s) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 

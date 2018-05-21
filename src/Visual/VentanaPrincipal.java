@@ -9,6 +9,7 @@ package Visual;
 import Lexico.Lexico;
 import Contenedores.Simbolo;
 import Interfaces.Nodo;
+import Semantico.Semantico;
 import Sintactico.Sintactico;
 import static Util.Util.imprime;
 import java.net.URL;
@@ -50,12 +51,20 @@ public class VentanaPrincipal implements Initializable {
     private MenuItem btnAbout;
     @FXML
     private Button btnArbol;
+    @FXML
+    private Button btnSemantico;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         simbolos = new ArrayList<>();
         salida = new StringBuilder();
 
+    }
+    private String testSemantico(){
+          imprimeln("*************TEST SEMANTICO*****************");
+          salidaTxt.setText("Analizando entrada...");
+          Semantico s = new Semantico(entradaTxt.getText());
+          return(s.analiza())?"Aceptado":"Pendiente Imprimir tabla errores";
     }
 
     private String testSintactico() {
@@ -113,6 +122,12 @@ public class VentanaPrincipal implements Initializable {
         String info = testSintacticoArbol();
         salidaTxt.setText(info);
     }
+    @FXML
+    private void analizaSemantico(ActionEvent event) {
+        salidaTxt.setText(null);
+        String info = testSemantico();
+        salidaTxt.setText(info);
+    }
 
     @FXML
     private void cerrarVentana(ActionEvent event) {
@@ -123,5 +138,7 @@ public class VentanaPrincipal implements Initializable {
     private void mostrarMiInfo(ActionEvent event) {
 
     }
+
+    
 
 }

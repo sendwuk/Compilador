@@ -28,8 +28,10 @@
           </Menu>
         </menus>
       </MenuBar>
-      <Button fx:id="btnAnalizaLexico" layoutX="451.0" layoutY="424.0" mnemonicParsing="false" onAction="#analizaLexico" text="Analisis Lexico" />
+      <Button fx:id="btnAnalizaLexico" layoutX="451.0" layoutY="424.0" mnemonicParsing="false" onAction="#analizaLexico" text="Análisis Lexico" />
       <TextArea fx:id="salidaTxt" layoutX="31.0" layoutY="411.0" prefHeight="168.0" prefWidth="398.0" />
-      <Button fx:id="btnAnalizaSintactico" layoutX="451.0" layoutY="458.0" mnemonicParsing="false" onAction="#analizaSintactico" text="Analisis Sintactico" />
+      <Button fx:id="btnAnalizaSintactico" layoutX="451.0" layoutY="458.0" mnemonicParsing="false" onAction="#analizaSintactico" text="Análisis Sintactico" />
+      <Button fx:id="btnArbol" layoutX="451.0" layoutY="495.0" mnemonicParsing="false" onAction="#analizaArbolSintactico" text="Árbol Sintáctico" />
+      <Button fx:id="btnSemantico" layoutX="451.0" layoutY="535.0" mnemonicParsing="false" onAction="#analizaSemantico" text="Análisis Semántico" />
    </children>
 </AnchorPane>

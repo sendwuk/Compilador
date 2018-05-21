@@ -10,6 +10,7 @@ import Interfaces.Nodo;
 import Interfaces.Constantes;
 import Interfaces.ElementoPila;
 import Contenedores.NoTerminal;
+import Semantico.Semantico;
 
 /**
  *
@@ -39,8 +40,14 @@ public class Programa extends Nodo implements Constantes {
     }
 
     @Override
-    public void validarSemanticamente(String tipoVar) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public char validarSemanticamente(String ambito,Semantico s) {
+        if(definicion!=null)definicion.validarSemanticamente(ambito,s);
+        return OK;
+    }
+
+    @Override
+    public void validarSemanticamente(String tipo, String ambito, Semantico s) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

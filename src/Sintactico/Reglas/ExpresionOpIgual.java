@@ -10,6 +10,7 @@ import Contenedores.NoTerminal;
 import Interfaces.Constantes;
 import Interfaces.ElementoPila;
 import Interfaces.Nodo;
+import Semantico.Semantico;
 import Util.Pila;
 /**
  *
@@ -45,7 +46,20 @@ public class ExpresionOpIgual extends Nodo implements Constantes {
     }
 
     @Override
-    public void validarSemanticamente(String tipoVar) {
+    public char validarSemanticamente(String ambito, Semantico s) {
+        char izq,der;
+        izq=exp1.validarSemanticamente(ambito, s);
+        der=exp2.validarSemanticamente(ambito, s);
+        if((izq==der)&&(izq!=NOT_OK && der!=NOT_OK)){
+            return der;
+        }else{
+            s.insertarError(ERROR_OPERANDOS_DISTINTOS,izq+igual+der);
+            return NOT_OK;
+        }
+    }
+
+    @Override
+    public void validarSemanticamente(String tipo, String ambito, Semantico s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

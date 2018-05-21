@@ -10,6 +10,7 @@ import Contenedores.Terminal;
 import Interfaces.Constantes;
 import Interfaces.ElementoPila;
 import Interfaces.Nodo;
+import Semantico.Semantico;
 import Util.Pila;
 /**
  *
@@ -41,9 +42,19 @@ public class SentenciaReturn extends Nodo implements Constantes {
         info+=FIN_SENTENCIA+NL;
         return info;
     }
+    @Override
+    public char validarSemanticamente(String ambito, Semantico s) {
+        char valor=' ';
+     if(valorRetorno!=null)valor=valorRetorno.validarSemanticamente(ambito, s);
+     if(valor!= s.existeTipo(ambito,AMBITO_GLOBAL)){
+         s.insertarError(ERROR_TIPO_NO_COINCIDE, miRetorno);
+         return NOT_OK;
+     }
+     return OK;
+    }
 
     @Override
-    public void validarSemanticamente(String tipoVar) {
+    public void validarSemanticamente(String tipo, String ambito, Semantico s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

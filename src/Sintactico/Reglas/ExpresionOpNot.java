@@ -10,6 +10,7 @@ import Contenedores.NoTerminal;
 import Interfaces.Constantes;
 import Interfaces.ElementoPila;
 import Interfaces.Nodo;
+import Semantico.Semantico;
 import Util.Pila;
 /**
  *
@@ -42,7 +43,12 @@ public class ExpresionOpNot extends Nodo implements Constantes {
     }
 
     @Override
-    public void validarSemanticamente(String tipoVar) {
+    public char validarSemanticamente(String ambito, Semantico s) {
+        return expresion.validarSemanticamente(ambito, s);
+    }
+
+    @Override
+    public void validarSemanticamente(String tipo, String ambito, Semantico s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
