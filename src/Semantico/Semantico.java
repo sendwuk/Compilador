@@ -55,25 +55,18 @@ public class Semantico implements Constantes {
     }
 
     public char existeTipo(String id, String ambito) {
-        imprimeln("Existe tipo");
-        int cantSimbolos = cantSimbolos();
-        Token tk = getToken(id, ambito);
-        if (cantSimbolos > 0) {
-            for (int i = 0; i < cantSimbolos; i++) {
-                if (tablaSimbolos.get(i).ambito.equals(ambito)
-                        && tablaSimbolos.get(i).id.equals(id)) {
-                    if (tk != null) {
-                        imprimeln("Token no null");
-                        return tk.tipo.charAt(0);
-                    } else {
-                        imprimeln("Token null");
-                        return NOT_OK;
-                    }
-                }
-            }
-            return NOT_OK;
-        }
-        return NOT_OK;
+        imprimeln("Exite tipo buscando id "+id+" Ambito "+ambito);
+        int cantSimbolos=cantSimbolos();
+       if(cantSimbolos()>0){
+           for(int i=0,j=cantSimbolos;i<j;i++){
+               if(tablaSimbolos.get(i).id.equals(id)&&
+                       tablaSimbolos.get(i).ambito.equals(ambito)){
+                   imprimeln("Encontrado");
+                   return tablaSimbolos.get(i).tipo.charAt(0);
+               }
+           }
+       }
+       return NOT_OK;
     }
 
     public boolean insertarToken(Token tk) {
