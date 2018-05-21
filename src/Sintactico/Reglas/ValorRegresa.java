@@ -33,16 +33,21 @@ public class ValorRegresa extends Nodo implements Constantes {
 
     @Override
     public String getArbol() {
-        String info=INICIO_VALOR_REGRESA+NL;
-        if(expresion!=null)info+=expresion.getArbol();
-        info+=FIN_VALOR_REGRESA+NL;
+        String info = INICIO_VALOR_REGRESA + NL;
+        if (expresion != null) {
+            info += expresion.getArbol();
+        }
+        info += FIN_VALOR_REGRESA + NL;
         return info;
     }
 
     @Override
     public char validarSemanticamente(String ambito, Semantico s) {
-        if(expresion!=null)expresion.validarSemanticamente(ambito, s);
-        return OK;
+        imprimeln("Validando R"+id);
+        if (expresion != null) {
+           return expresion.validarSemanticamente(ambito, s);
+        }
+        return NOT_OK;
     }
 
     @Override

@@ -13,6 +13,7 @@ import Interfaces.ElementoPila;
 import Interfaces.Nodo;
 import Semantico.Semantico;
 import Util.Pila;
+import java.util.ArrayList;
 
 /**
  *
@@ -58,19 +59,20 @@ public class DefinicionFuncion extends Nodo implements Constantes {
 
     @Override
     public char validarSemanticamente(String ambito, Semantico s) {
+        imprimeln("Validando R"+id);
         if (s.existeVar(idFunc, ambito)) {
-            if (parametro != null) {
-                parametro.validarSemanticamente(ambito, s);
-                s.insertarToken(new Token(idFunc, tipoFunc, ambito, tokenGlobalAux.getParametros()));
-
-            } else {
-                s.insertarToken(new Token(idFunc, tipoFunc, ambito));
-            }
-        } else {
+            imprimeln("Si existe "+idFunc);
             s.insertarError(ERROR_FUNCION_REDEFINIDA, idFunc);
+        }else{
+            parametrosGlobales= new ArrayList<>();
         }
-        if(bloqueFunc!=null){
-            bloqueFunc.validarSemanticamente(idFunc,s);
+        if (parametro != null) {
+            parametro.validarSemanticamente(idFunc, s);
+        }
+        tokenGlobalAux= new Token(idFunc,tipoFunc,ambito,parametrosGlobales);
+        s.insertarToken(tokenGlobalAux);
+        if (bloqueFunc != null) {
+            bloqueFunc.validarSemanticamente(idFunc, s);
         }
 
         return OK;

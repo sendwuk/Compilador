@@ -3,24 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Sintactico.Reglas;
+
 import Contenedores.Terminal;
 import Interfaces.Constantes;
 import Interfaces.ElementoPila;
 import Interfaces.Nodo;
 import Semantico.Semantico;
 import Util.Pila;
+
 /**
  *
  * @author Gonzalez Luna Bryan Josue
  */
 public class TerminoId extends Nodo implements Constantes {
-    private int id=R36;
+
+    private int id = R36;
     private String datoId;
-    public TerminoId(Pila<ElementoPila>p){
+
+    public TerminoId(Pila<ElementoPila> p) {
         p.desapila();
-        datoId=((Terminal)p.desapila()).getLexema();
+        datoId = ((Terminal) p.desapila()).getLexema();
     }
 
     @Override
@@ -30,17 +33,20 @@ public class TerminoId extends Nodo implements Constantes {
 
     @Override
     public String getArbol() {
-        String info=INICIO_TERMINO+NL;
-        info+=TAB+"< "+datoId+" >"+NL;
-        info+=FIN_TERMINO+NL;
+        String info = INICIO_TERMINO + NL;
+        info += TAB + "< " + datoId + " >" + NL;
+        info += FIN_TERMINO + NL;
         return info;
     }
 
     @Override
     public char validarSemanticamente(String ambito, Semantico s) {
-        if(!s.existeVar(datoId, ambito) && !s.existeVar(datoId,AMBITO_LOCAL)){
-            s.insertarError(ERROR_VARIABLE_NO_DEFINIDA,datoId);
+        imprimeln("Validando R"+id);
+        if (!s.existeVar(datoId, ambito) && !s.existeVar(datoId,AMBITO_GLOBAL)) {
+            imprimeln("Error no existe "+datoId);
+            s.insertarError(ERROR_VARIABLE_NO_DEFINIDA, datoId);
         }
+        imprimeln("Dato id "+datoId);
         return s.existeTipo(datoId, ambito);
     }
 

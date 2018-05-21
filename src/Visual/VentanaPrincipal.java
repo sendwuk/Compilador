@@ -8,6 +8,7 @@ package Visual;
 //import static compilador.Util.imprimeLn;
 import Lexico.Lexico;
 import Contenedores.Simbolo;
+import Interfaces.Constantes;
 import Interfaces.Nodo;
 import Semantico.Semantico;
 import Sintactico.Sintactico;
@@ -31,7 +32,7 @@ import static Util.Util.imprimeln;
  *
  * @author Bryan Josue Gonzalez Luna
  */
-public class VentanaPrincipal implements Initializable {
+public class VentanaPrincipal implements Initializable, Constantes {
 
     @FXML
     private AnchorPane lienzoPrincipal;
@@ -60,11 +61,12 @@ public class VentanaPrincipal implements Initializable {
         salida = new StringBuilder();
 
     }
-    private String testSemantico(){
-          imprimeln("*************TEST SEMANTICO*****************");
-          salidaTxt.setText("Analizando entrada...");
-          Semantico s = new Semantico(entradaTxt.getText());
-          return(s.analiza())?"Aceptado":"Pendiente Imprimir tabla errores";
+
+    private String testSemantico() {
+        imprimeln("*************TEST SEMANTICO*****************");
+        salidaTxt.setText("Analizando entrada...");
+        Semantico s = new Semantico(entradaTxt.getText());
+        return (s.analiza()) ? "Aceptado"+NL+s.imprimeSimbolos() : s.imprimeErrores();
     }
 
     private String testSintactico() {
@@ -79,9 +81,10 @@ public class VentanaPrincipal implements Initializable {
         salidaTxt.setText("Analizando entrada...");
         Nodo grover;
         Sintactico s = new Sintactico(entradaTxt.getText());
-        grover=s.analizaArbol();
-        if(grover!=null)
+        grover = s.analizaArbol();
+        if (grover != null) {
             return grover.getArbol();
+        }
         return "No Aceptado";
 
     }
@@ -122,6 +125,7 @@ public class VentanaPrincipal implements Initializable {
         String info = testSintacticoArbol();
         salidaTxt.setText(info);
     }
+
     @FXML
     private void analizaSemantico(ActionEvent event) {
         salidaTxt.setText(null);
@@ -138,7 +142,5 @@ public class VentanaPrincipal implements Initializable {
     private void mostrarMiInfo(ActionEvent event) {
 
     }
-
-    
 
 }

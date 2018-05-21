@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Interfaces;
 
 /**
@@ -11,5 +10,6 @@ package Interfaces;
  * @author Gonzalez Luna Bryan Josue
  */
 public abstract class ElementoPila {
-public abstract void mostrar();
+
+    public abstract void mostrar();
 }

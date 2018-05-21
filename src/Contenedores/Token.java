@@ -13,29 +13,46 @@ import java.util.ArrayList;
  * @author Gonzalez Luna Bryan Josue
  */
 public class Token implements Constantes {
-    
+
     public String id;
     public String tipo;
     public String ambito;
-    public ArrayList<Character> parametros = new ArrayList<>();
+    public ArrayList<Character> parametros;
+    public ArrayList<Character> argumentos;
 
     public Token() {
-        this("sin id", "sin tipo", "sin ambito");
+        setInfo("sin id", "sin tipo", "sin ambito");
     }
 
     public Token(String id, String tipo, String ambito) {
-        this.id = id;
-        this.tipo = tipo;
-        this.ambito = ambito;
+        setInfo(id,tipo,ambito);
     }
 
     public Token(String id, String tipo, String ambito, ArrayList<Character> parametros) {
-        this(id, tipo, ambito);
-        this.parametros = parametros;
+        setInfo(id,tipo,ambito,parametros);
+    }
+    public final void setInfo(String id,String tipo,String ambito){
+        this.id=id;
+        this.tipo=tipo;
+        this.ambito=ambito;
+    }
+    public final void setInfo(String id,String tipo,String ambito,
+            ArrayList<Character>parametros){
+        setInfo(id,tipo,ambito);
+        this.parametros=parametros;
     }
 
     public ArrayList<Character> getParametros() {
         return parametros;
+    }
+    public ArrayList<Character> getArgumentos() {
+        return argumentos;
+    }
+    public Character getArgumentoEn(int i) {
+        if (i >= 0 && i < getCantParametros()) {
+            return parametros.get(i);
+        }
+        return NOT_OK;
     }
 
     public Character getParametroEn(int i) {
@@ -48,9 +65,19 @@ public class Token implements Constantes {
     public int getCantParametros() {
         return parametros.size();
     }
+    public int getCantArgumentos() {
+        return parametros.size();
+    }
 
     public void agregarParametro(char param) {
         parametros.add(param);
     }
-    
+    public void agregarArgumentos(char arg){
+        argumentos.add(arg);
+    }
+    @Override 
+    public String toString(){
+        return "Id "+id+ " |Tipo: "+tipo+" |Ambito: "+ambito;
+    }
+
 }

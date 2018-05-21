@@ -64,14 +64,14 @@ public class LlamadaFunc extends Nodo implements Constantes {
                 argumento.validarSemanticamente(ambito, s);
                 cantParametros = tokenGlobalAux.getCantParametros();
             }
-            if (cantParametros != tokenGlobalAux.getCantParametros()) {
+            if (cantParametros != argumentosGlobales.size()) {
                 s.insertarError(ERROR_CANT_PARAMETROS_NO_COINCIDE, identificador);
 
             } else {
                 for (int i = 0; i < cantParametros; i++) {
                     if (!Objects.equals(
                             s.getToken(identificador, ambito).getParametroEn(i),
-                            tokenGlobalAux.getParametroEn(i))) {
+                           argumentosGlobales.get(i))) {
                         s.insertarError(ERROR_ARGUMENTOS_NO_COINCIDE, identificador);
                     }
                 }

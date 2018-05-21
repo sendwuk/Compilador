@@ -3,26 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Sintactico.Reglas;
+
 import Contenedores.Terminal;
 import Interfaces.Constantes;
 import Interfaces.ElementoPila;
 import Interfaces.Nodo;
 import Semantico.Semantico;
 import Util.Pila;
+
 /**
  *
  * @author Gonzalez Luna Bryan Josue
  */
 public class TerminoFloat extends Nodo implements Constantes {
-private int id=R38;
-private String real;
 
-public TerminoFloat(Pila<ElementoPila>p){
-    p.desapila();
-    real=((Terminal)p.desapila()).getLexema();
-}
+    private int id = R38;
+    private String real;
+
+    public TerminoFloat(Pila<ElementoPila> p) {
+        p.desapila();
+        real = ((Terminal) p.desapila()).getLexema();
+    }
 
     @Override
     public int getID() {
@@ -31,14 +33,15 @@ public TerminoFloat(Pila<ElementoPila>p){
 
     @Override
     public String getArbol() {
-        String info=INICIO_TERMINO+NL;
-        info+=TAB+"< "+real+" >"+NL;
-        info+=FIN_TERMINO+NL;
+        String info = INICIO_TERMINO + NL;
+        info += TAB + "< " + real + " >" + NL;
+        info += FIN_TERMINO + NL;
         return info;
     }
 
     @Override
     public char validarSemanticamente(String ambito, Semantico s) {
+        imprimeln("Validando R"+id);
         return 'f';
     }
 

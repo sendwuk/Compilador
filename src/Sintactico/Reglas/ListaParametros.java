@@ -57,13 +57,16 @@ public class ListaParametros extends Nodo implements Constantes {
 
     @Override
     public void validarSemanticamente(String tipo, String ambito, Semantico s) {
-        if(s.existeVar(idParam,ambito)){
-            s.insertarError(ERROR_PARAMETRO_REDEFINIDO,idParam);
-        }else{
-            tokenGlobalAux.agregarParametro(tipo.charAt(0));
+        imprimeln("Validando R"+id);
+        if (s.existeVar(idParam, ambito)) {
+            imprimeln("Si existe "+idParam);
+            s.insertarError(ERROR_PARAMETRO_REDEFINIDO, idParam);
+        } else {
+            parametrosGlobales.add(tipo.charAt(0));
+            tokenGlobalAux.setInfo(idParam, tipo, ambito);
             s.insertarToken(tokenGlobalAux);
         }
-        if(listaParam!=null){
+        if (listaParam != null) {
             listaParam.validarSemanticamente(tipo, ambito, s);
         }
     }

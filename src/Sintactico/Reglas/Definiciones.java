@@ -24,11 +24,11 @@ public class Definiciones extends Nodo implements Constantes {
 
     public Definiciones(Pila<ElementoPila> p) {
         p.desapila();
-        definiciones =((NoTerminal)p.desapila()).getNodo();
+        definiciones = ((NoTerminal) p.desapila()).getNodo();
         p.desapila();
-        definicion = ((NoTerminal)p.desapila()).getNodo();
+        definicion = ((NoTerminal) p.desapila()).getNodo();
     }
-    
+
     @Override
     public int getID() {
         return id;
@@ -36,21 +36,26 @@ public class Definiciones extends Nodo implements Constantes {
 
     @Override
     public String getArbol() {
-        String info = INICIO_DEFINICIONES +NL;
+        String info = INICIO_DEFINICIONES + NL;
         if (definicion != null) {
             info += definicion.getArbol();
         }
         if (definiciones != null) {
             info += definiciones.getArbol();
         }
-        info += FIN_DEFINICIONES +NL;
+        info += FIN_DEFINICIONES + NL;
         return info;
     }
 
     @Override
-    public char validarSemanticamente(String ambito,Semantico s) {
-        if(definicion!=null)definicion.validarSemanticamente(ambito,s);
-        if(definiciones!=null)definiciones.validarSemanticamente(ambito,s);
+    public char validarSemanticamente(String ambito, Semantico s) {
+        imprimeln("Validando R" + id);
+        if (definicion != null) {
+            definicion.validarSemanticamente(ambito, s);
+        }
+        if (definiciones != null) {
+            definiciones.validarSemanticamente(ambito, s);
+        }
         return OK;
     }
 
@@ -58,7 +63,5 @@ public class Definiciones extends Nodo implements Constantes {
     public void validarSemanticamente(String tipo, String tipoVar, Semantico s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    
 
 }

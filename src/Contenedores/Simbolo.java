@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Contenedores;
 
 /**
@@ -11,10 +10,12 @@ package Contenedores;
  * @author Gonzalez Luna Bryan Josue
  */
 public class Simbolo {
+
     public String lexema;
     public int tipo;
+
     @Override
-    public String toString(){
+    public String toString() {
         return lexema;
     }
 

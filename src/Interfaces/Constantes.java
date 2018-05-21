@@ -37,14 +37,14 @@ public interface Constantes {
     public final int RETURN = 21;
     public final int ELSE = 22;
     public final int FIN_ENTRADA = 23;
-    public final int ERROR_VARIABLE_REDEFINIDA=1;
-    public final int ERROR_FUNCION_REDEFINIDA=2;
-    public final int ERROR_PARAMETRO_REDEFINIDO=3;
-    public final int ERROR_VARIABLE_NO_DEFINIDA=4;
-    public final int ERROR_TIPO_NO_COINCIDE=5;
-    public final int ERROR_CANT_PARAMETROS_NO_COINCIDE=6;
-    public final int ERROR_ARGUMENTOS_NO_COINCIDE=7;
-    public final int ERROR_OPERANDOS_DISTINTOS=8;
+    public final int ERROR_VARIABLE_REDEFINIDA = 1;
+    public final int ERROR_FUNCION_REDEFINIDA = 2;
+    public final int ERROR_PARAMETRO_REDEFINIDO = 3;
+    public final int ERROR_VARIABLE_NO_DEFINIDA = 4;
+    public final int ERROR_TIPO_NO_COINCIDE = 5;
+    public final int ERROR_CANT_PARAMETROS_NO_COINCIDE = 6;
+    public final int ERROR_ARGUMENTOS_NO_COINCIDE = 7;
+    public final int ERROR_OPERANDOS_DISTINTOS = 8;
     public final int R1 = 1;
     public final int R2 = 2;
     public final int R3 = 3;
@@ -139,7 +139,7 @@ public interface Constantes {
     public final int EXPRESION_AND = 49;
     public final int EXPRESION_OR = 50;
     public final int EXPRESION_TERMINAL = 51;
-    public final int MAX_PARAMETROS=25;
+    public final int MAX_PARAMETROS = 25;
     public final String NOMBRE_ARCHIVO = "compilador.lr";
     public final String FIN_PILA = "$";
     public final String TAB = "\t";
@@ -189,8 +189,9 @@ public interface Constantes {
     public final String FIN_SENTENCIA_BLOQUE = "</SentenciaBloque>";
     public final String INICIO_EXPRESION = "<Expresion>";
     public final String FIN_EXPRESION = "</Expresion>";
-    public final String AMBITO_GLOBAL="global";
-    public final String AMBITO_LOCAL="local";
-    public final char OK='1';
-    public final char NOT_OK='0';
+    public final String AMBITO_GLOBAL = "global";
+    public final String TABLA_SIMBOLOS="Tabla simbolos";
+    public final String TABLA_ERRORES="Tabla Errores";
+    public final char OK = '1';
+    public final char NOT_OK = '0';
 }

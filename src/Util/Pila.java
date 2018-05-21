@@ -17,7 +17,7 @@ public class Pila<Objeto> {
 
     Stack<Objeto> pila;
 
-     public Pila() {
+    public Pila() {
         pila = new Stack<>();
     }
 

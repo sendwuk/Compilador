@@ -18,6 +18,7 @@ import Util.Pila;
  * @author Gonzalez Luna Bryan Josue
  */
 public class Otro extends Nodo implements Constantes {
+
     private int id = R27;
     private Nodo sentenciaBloque;
     private String miElse;
@@ -26,7 +27,7 @@ public class Otro extends Nodo implements Constantes {
         p.desapila();
         sentenciaBloque = ((NoTerminal) p.desapila()).getNodo();
         p.desapila();
-        miElse=((Terminal)p.desapila()).getLexema();
+        miElse = ((Terminal) p.desapila()).getLexema();
     }
 
     @Override
@@ -36,16 +37,21 @@ public class Otro extends Nodo implements Constantes {
 
     @Override
     public String getArbol() {
-        String info=INICIO_OTRO+NL;
-        info+=TAB+"< "+miElse+" >";
-        if(sentenciaBloque!=null)info+=sentenciaBloque.getArbol();
-        info+=FIN_OTRO+NL;
+        String info = INICIO_OTRO + NL;
+        info += TAB + "< " + miElse + " >";
+        if (sentenciaBloque != null) {
+            info += sentenciaBloque.getArbol();
+        }
+        info += FIN_OTRO + NL;
         return info;
     }
 
     @Override
     public char validarSemanticamente(String ambito, Semantico s) {
-        if(sentenciaBloque!=null)sentenciaBloque.validarSemanticamente(ambito, s);
+        imprimeln("Validando R"+id);
+        if (sentenciaBloque != null) {
+            sentenciaBloque.validarSemanticamente(ambito, s);
+        }
         return OK;
     }
 
@@ -53,6 +59,5 @@ public class Otro extends Nodo implements Constantes {
     public void validarSemanticamente(String tipo, String ambito, Semantico s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 
 }

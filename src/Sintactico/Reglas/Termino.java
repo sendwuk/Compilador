@@ -3,25 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Sintactico.Reglas;
+
 import Contenedores.NoTerminal;
 import Interfaces.Constantes;
 import Interfaces.ElementoPila;
 import Interfaces.Nodo;
 import Semantico.Semantico;
 import Util.Pila;
+
 /**
  *
  * @author Gonzalez Luna Bryan Josue
  */
 public class Termino extends Nodo implements Constantes {
-    private int id=R35;
+
+    private int id = R35;
     private Nodo llamadaFunc;
-    
-    public Termino(Pila<ElementoPila>p){
+
+    public Termino(Pila<ElementoPila> p) {
         p.desapila();
-        llamadaFunc=((NoTerminal)p.desapila()).getNodo();
+        llamadaFunc = ((NoTerminal) p.desapila()).getNodo();
     }
 
     @Override
@@ -31,16 +33,21 @@ public class Termino extends Nodo implements Constantes {
 
     @Override
     public String getArbol() {
-        String info=INICIO_TERMINO+NL;
-        if(llamadaFunc!=null)info+=llamadaFunc.getArbol();
-        info+=FIN_TERMINO+NL;
+        String info = INICIO_TERMINO + NL;
+        if (llamadaFunc != null) {
+            info += llamadaFunc.getArbol();
+        }
+        info += FIN_TERMINO + NL;
         return info;
     }
 
     @Override
     public char validarSemanticamente(String ambito, Semantico s) {
-        if(llamadaFunc!=null)llamadaFunc.validarSemanticamente(ambito, s);
-        return OK;
+        imprimeln("Validando R"+id);
+        if (llamadaFunc != null) {
+            return llamadaFunc.validarSemanticamente(ambito, s);
+        }
+        return NOT_OK;
     }
 
     @Override

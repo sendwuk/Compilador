@@ -3,24 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Sintactico.Reglas;
+
 import Contenedores.NoTerminal;
 import Interfaces.Constantes;
 import Interfaces.ElementoPila;
 import Interfaces.Nodo;
 import Semantico.Semantico;
 import Util.Pila;
+
 /**
  *
  * @author Gonzalez Luna Bryan Josue
  */
 public class SentenciaBloque extends Nodo implements Constantes {
-    private int id=R41;
+
+    private int id = R41;
     private Nodo sentencia;
-    public SentenciaBloque(Pila<ElementoPila>p){
+
+    public SentenciaBloque(Pila<ElementoPila> p) {
         p.desapila();
-        sentencia=((NoTerminal)p.desapila()).getNodo();
+        sentencia = ((NoTerminal) p.desapila()).getNodo();
     }
 
     @Override
@@ -30,16 +33,21 @@ public class SentenciaBloque extends Nodo implements Constantes {
 
     @Override
     public String getArbol() {
-        String info=INICIO_SENTENCIA_BLOQUE+NL;
-        if(sentencia!=null)info+=sentencia.getArbol();
-        info+=FIN_SENTENCIA_BLOQUE+NL;
-     return info;   
+        String info = INICIO_SENTENCIA_BLOQUE + NL;
+        if (sentencia != null) {
+            info += sentencia.getArbol();
+        }
+        info += FIN_SENTENCIA_BLOQUE + NL;
+        return info;
     }
 
     @Override
     public char validarSemanticamente(String ambito, Semantico s) {
-     if(sentencia!=null)sentencia.validarSemanticamente(ambito, s);
-     return OK;
+        imprimeln("Validando R"+id);
+        if (sentencia != null) {
+            sentencia.validarSemanticamente(ambito, s);
+        }
+        return OK;
     }
 
     @Override

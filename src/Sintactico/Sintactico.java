@@ -29,7 +29,6 @@ import static Util.Util.imprimeln;
  */
 public class Sintactico implements Constantes {
 
-    
     private Lexico lex;
     private int filas, columnas;
     private boolean aceptacion;
@@ -85,8 +84,9 @@ public class Sintactico implements Constantes {
             return false;
         }
     }
-    public Nodo analizaArbol(){
-          int fila, columna, accion, regla, i, j;
+
+    public Nodo analizaArbol() {
+        int fila, columna, accion, regla, i, j;
         Pila<ElementoPila> pila;
         aceptacion = false;
         Simbolo actual;
@@ -104,7 +104,7 @@ public class Sintactico implements Constantes {
         imprimeln(lex.getTipo(actual.tipo));
         while (!aceptacion && !pila.vacia()) {
             try {
-                
+
                 fila = ((Accion) pila.tope()).getAccion();
                 columna = actual.tipo;
                 accion = tablaLr[fila][columna];
@@ -122,19 +122,20 @@ public class Sintactico implements Constantes {
                         return arbolitoDeNavidad;
                     }
                     regla = (-1) * (accion + 2);
-                       generarArbol(regla,pila);
+                    generarArbol(regla, pila);
                     fila = ((Accion) pila.tope()).getAccion();
                     columna = idReglas.get(regla);
                     accion = tablaLr[fila][columna];
-                    pila.apila(new NoTerminal(reglas.get(regla),arbolitoDeNavidad));
+                    pila.apila(new NoTerminal(reglas.get(regla), arbolitoDeNavidad));
                     pila.apila(new Accion(accion));
-                } else
+                } else {
                     imprimeln("Error no aceptado");
+                }
             } catch (IndexOutOfBoundsException e) {
                 imprime(e.getMessage());
             }
         }
-        
+
         return null;
     }
 
@@ -175,10 +176,10 @@ public class Sintactico implements Constantes {
                         return aceptacion;
                     }
                     regla = (-1) * (accion + 2);
-                        for (i = 0, j = longReglas.get(regla); i < j; i++) {
-                            imprimeln("1. " + pila.desapila());
-                            imprimeln("2." + pila.desapila());
-                        }
+                    for (i = 0, j = longReglas.get(regla); i < j; i++) {
+                        imprimeln("1. " + pila.desapila());
+                        imprimeln("2." + pila.desapila());
+                    }
                     fila = Integer.parseInt(pila.tope());
                     columna = idReglas.get(regla);
                     accion = tablaLr[fila][columna];
@@ -212,7 +213,7 @@ public class Sintactico implements Constantes {
         return tablaLr;
     }
 
-    private void generarArbol(int regla,Pila<ElementoPila>pila) {
+    private void generarArbol(int regla, Pila<ElementoPila> pila) {
         switch (regla) {
             case PROGRAMA:
                 arbolitoDeNavidad = new Programa(pila);
@@ -260,54 +261,54 @@ public class Sintactico implements Constantes {
                 arbolitoDeNavidad = new Sentencia(pila);
                 break;
             case SENTENCIA_R22:
-                arbolitoDeNavidad= new SentenciaIf(pila);
+                arbolitoDeNavidad = new SentenciaIf(pila);
                 break;
             case SENTENCIA_R23:
-                arbolitoDeNavidad=new SentenciaWhile(pila);
+                arbolitoDeNavidad = new SentenciaWhile(pila);
                 break;
             case SENTENCIA_R24:
-                arbolitoDeNavidad= new SentenciaReturn(pila);
+                arbolitoDeNavidad = new SentenciaReturn(pila);
                 break;
             case SENTENCIA_R25:
-                arbolitoDeNavidad=new SentenciaLlamadaFunc(pila);
+                arbolitoDeNavidad = new SentenciaLlamadaFunc(pila);
                 break;
             case OTRO:
-                arbolitoDeNavidad= new Otro(pila);
+                arbolitoDeNavidad = new Otro(pila);
                 break;
             case BLOQUE:
-                arbolitoDeNavidad= new Bloque(pila);
+                arbolitoDeNavidad = new Bloque(pila);
                 break;
             case VALOR_REGRESA:
-                arbolitoDeNavidad= new ValorRegresa(pila);
+                arbolitoDeNavidad = new ValorRegresa(pila);
                 break;
             case ARGS:
-                arbolitoDeNavidad= new Argumentos(pila);
+                arbolitoDeNavidad = new Argumentos(pila);
                 break;
             case LISTA_ARGS:
-                arbolitoDeNavidad=new ListaArgumentos(pila);
+                arbolitoDeNavidad = new ListaArgumentos(pila);
                 break;
             case TERMINO:
-                arbolitoDeNavidad= new Termino(pila);
+                arbolitoDeNavidad = new Termino(pila);
                 break;
             case TERMINO_ID:
-                arbolitoDeNavidad= new TerminoId(pila);
+                arbolitoDeNavidad = new TerminoId(pila);
                 break;
             case TERMINO_ENTERO:
-                arbolitoDeNavidad= new TerminoInt(pila);
+                arbolitoDeNavidad = new TerminoInt(pila);
                 break;
             case TERMINO_REAL:
-                arbolitoDeNavidad= new TerminoFloat(pila);
+                arbolitoDeNavidad = new TerminoFloat(pila);
                 break;
             case TERMINO_CADENA:
-                arbolitoDeNavidad= new TerminoString(pila);
+                arbolitoDeNavidad = new TerminoString(pila);
                 break;
             case LLAMADA_FUNCION:
-                arbolitoDeNavidad= new LlamadaFunc(pila);
+                arbolitoDeNavidad = new LlamadaFunc(pila);
                 break;
             case BLOQUE_SENTENCIA:
-                arbolitoDeNavidad= new SentenciaBloque(pila);
+                arbolitoDeNavidad = new SentenciaBloque(pila);
                 break;
-            case BLOQUE_SENTENCIA_BLOQUE :
+            case BLOQUE_SENTENCIA_BLOQUE:
                 arbolitoDeNavidad = new SentenciaBloqueR42(pila);
                 break;
             case EXPRESION:
@@ -317,38 +318,39 @@ public class Sintactico implements Constantes {
                 arbolitoDeNavidad = new ExpresionOpSuma(pila);
                 break;
             case EXPRESION_NOT:
-                arbolitoDeNavidad= new ExpresionOpNot(pila);
+                arbolitoDeNavidad = new ExpresionOpNot(pila);
                 break;
             case EXPRESION_MUL:
-                arbolitoDeNavidad= new ExpresionOpMul(pila);
+                arbolitoDeNavidad = new ExpresionOpMul(pila);
                 break;
             case EXPRESION_OP_SUMA:
-                arbolitoDeNavidad= new ExpresionSuma(pila);
+                arbolitoDeNavidad = new ExpresionSuma(pila);
                 break;
             case EXPRESION_RELAC:
-                arbolitoDeNavidad= new ExpresionOpRelac(pila);
+                arbolitoDeNavidad = new ExpresionOpRelac(pila);
                 break;
             case EXPRESION_IGUAL:
                 arbolitoDeNavidad = new ExpresionOpIgual(pila);
                 break;
             case EXPRESION_AND:
-                arbolitoDeNavidad= new ExpresionAnd(pila);
+                arbolitoDeNavidad = new ExpresionAnd(pila);
                 break;
             case EXPRESION_OR:
-                arbolitoDeNavidad= new ExpresionOr(pila);
+                arbolitoDeNavidad = new ExpresionOr(pila);
                 break;
             case EXPRESION_TERMINAL:
-                arbolitoDeNavidad= new ExpresionTermino(pila);
+                arbolitoDeNavidad = new ExpresionTermino(pila);
                 break;
             default:
-                arbolitoDeNavidad=null;
+                arbolitoDeNavidad = null;
                 break;
 
         }
 
     }
-    public Nodo getArbol(){
-    return arbolitoDeNavidad;
+
+    public Nodo getArbol() {
+        return arbolitoDeNavidad;
     }
 
 }

@@ -9,28 +9,36 @@ package Util;
  *
  * @author Gonzalez Luna Bryan Josue
  */
-public  class Util {
+public class Util {
+
     public static void imprimeln(String text) {
         System.out.println(text);
     }
+
     public static void imprimeln(int text) {
         System.out.println(text);
     }
+
     public static void imprimeln(char text) {
         System.out.println(text);
     }
+
     public static void imprimeln(float text) {
         System.out.println(text);
     }
+
     public static void imprime(String text) {
         System.out.print(text);
     }
+
     public static void imprime(int text) {
         System.out.print(text);
     }
+
     public static void imprime(char text) {
         System.out.print(text);
     }
+
     public static void imprime(float text) {
         System.out.print(text);
     }

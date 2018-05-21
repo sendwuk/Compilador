@@ -3,8 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Sintactico.Reglas;
+
 import Contenedores.Terminal;
 import Contenedores.NoTerminal;
 import Interfaces.Constantes;
@@ -12,20 +12,22 @@ import Interfaces.ElementoPila;
 import Interfaces.Nodo;
 import Semantico.Semantico;
 import Util.Pila;
+
 /**
  *
  * @author Gonzalez Luna Bryan Josue
  */
 public class ExpresionOpNot extends Nodo implements Constantes {
-    private int id=R45;
+
+    private int id = R45;
     private Nodo expresion;
     private String opNot;
-    
-    public ExpresionOpNot(Pila<ElementoPila>p){
-    p.desapila();
-    expresion=((NoTerminal)p.desapila()).getNodo();
-    p.desapila();
-    opNot=((Terminal)p.desapila()).getLexema();
+
+    public ExpresionOpNot(Pila<ElementoPila> p) {
+        p.desapila();
+        expresion = ((NoTerminal) p.desapila()).getNodo();
+        p.desapila();
+        opNot = ((Terminal) p.desapila()).getLexema();
     }
 
     @Override
@@ -35,15 +37,18 @@ public class ExpresionOpNot extends Nodo implements Constantes {
 
     @Override
     public String getArbol() {
-        String info=INICIO_EXPRESION+NL;
-        info+=TAB+"< "+opNot+" >"+NL;
-        if(expresion!=null)info+=expresion.getArbol();
-        info+=FIN_EXPRESION+NL;
+        String info = INICIO_EXPRESION + NL;
+        info += TAB + "< " + opNot + " >" + NL;
+        if (expresion != null) {
+            info += expresion.getArbol();
+        }
+        info += FIN_EXPRESION + NL;
         return info;
     }
 
     @Override
     public char validarSemanticamente(String ambito, Semantico s) {
+        imprimeln("Validando R"+id);
         return expresion.validarSemanticamente(ambito, s);
     }
 

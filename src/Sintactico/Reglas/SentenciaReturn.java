@@ -3,8 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Sintactico.Reglas;
+
 import Contenedores.NoTerminal;
 import Contenedores.Terminal;
 import Interfaces.Constantes;
@@ -12,21 +12,24 @@ import Interfaces.ElementoPila;
 import Interfaces.Nodo;
 import Semantico.Semantico;
 import Util.Pila;
+
 /**
  *
  * @author Gonzalez Luna Bryan Josue
  */
 public class SentenciaReturn extends Nodo implements Constantes {
-    private int id=R24;
+
+    private int id = R24;
     private Nodo valorRetorno;
     private String miRetorno;
-    public SentenciaReturn(Pila<ElementoPila>p){
+
+    public SentenciaReturn(Pila<ElementoPila> p) {
         p.desapila();
         p.desapila();
         p.desapila();
-        valorRetorno=((NoTerminal)p.desapila()).getNodo();
+        valorRetorno = ((NoTerminal) p.desapila()).getNodo();
         p.desapila();
-        miRetorno=((Terminal)p.desapila()).getLexema();
+        miRetorno = ((Terminal) p.desapila()).getLexema();
     }
 
     @Override
@@ -36,21 +39,28 @@ public class SentenciaReturn extends Nodo implements Constantes {
 
     @Override
     public String getArbol() {
-        String info=INICIO_SENTENCIA;
-        info+=TAB+"< "+miRetorno+" >";
-        if(valorRetorno!=null)info+=valorRetorno.getArbol();
-        info+=FIN_SENTENCIA+NL;
+        String info = INICIO_SENTENCIA;
+        info += TAB + "< " + miRetorno + " >";
+        if (valorRetorno != null) {
+            info += valorRetorno.getArbol();
+        }
+        info += FIN_SENTENCIA + NL;
         return info;
     }
+
     @Override
     public char validarSemanticamente(String ambito, Semantico s) {
-        char valor=' ';
-     if(valorRetorno!=null)valor=valorRetorno.validarSemanticamente(ambito, s);
-     if(valor!= s.existeTipo(ambito,AMBITO_GLOBAL)){
-         s.insertarError(ERROR_TIPO_NO_COINCIDE, miRetorno);
-         return NOT_OK;
-     }
-     return OK;
+        imprimeln("Validando R"+id);
+        char valor = ' ';
+        if (valorRetorno != null) {
+            valor = valorRetorno.validarSemanticamente(ambito, s);
+        }
+        if (valor != s.existeTipo(ambito, AMBITO_GLOBAL)) {
+            imprimeln("Si hay error "+valor+"no coincide con el valor de retorno");
+            s.insertarError(ERROR_TIPO_NO_COINCIDE, miRetorno);
+            return NOT_OK;
+        }
+        return OK;
     }
 
     @Override

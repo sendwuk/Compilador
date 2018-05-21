@@ -25,15 +25,15 @@ public class SentenciaWhile extends Nodo implements Constantes {
 
     public SentenciaWhile(Pila<ElementoPila> p) {
         p.desapila();
-        bloque=((NoTerminal)p.desapila()).getNodo();
+        bloque = ((NoTerminal) p.desapila()).getNodo();
         p.desapila();
-        parentesisDer=((Terminal)p.desapila()).getLexema();
+        parentesisDer = ((Terminal) p.desapila()).getLexema();
         p.desapila();
-        expresion=((NoTerminal)p.desapila()).getNodo();
+        expresion = ((NoTerminal) p.desapila()).getNodo();
         p.desapila();
-        parentesisIzq=((Terminal)p.desapila()).getLexema();
+        parentesisIzq = ((Terminal) p.desapila()).getLexema();
         p.desapila();
-        miWhile=((Terminal)p.desapila()).getLexema();
+        miWhile = ((Terminal) p.desapila()).getLexema();
     }
 
     @Override
@@ -43,19 +43,29 @@ public class SentenciaWhile extends Nodo implements Constantes {
 
     @Override
     public String getArbol() {
-        String info=INICIO_SENTENCIA;
-        info+=TAB+"< "+miWhile+" >"+" < "+parentesisIzq+" >";
-        if(expresion!=null)info+=expresion.getArbol();
-        info+=" < "+parentesisDer+" >";
-        if(bloque!=null)info+=bloque.getArbol();
-        info+=FIN_SENTENCIA+NL;
+        String info = INICIO_SENTENCIA;
+        info += TAB + "< " + miWhile + " >" + " < " + parentesisIzq + " >";
+        if (expresion != null) {
+            info += expresion.getArbol();
+        }
+        info += " < " + parentesisDer + " >";
+        if (bloque != null) {
+            info += bloque.getArbol();
+        }
+        info += FIN_SENTENCIA + NL;
         return info;
     }
+
     @Override
     public char validarSemanticamente(String ambito, Semantico s) {
-        if(expresion!=null)expresion.validarSemanticamente(ambito, s);
-        if(bloque!=null)bloque.validarSemanticamente(ambito, s);
-     return OK;
+        imprimeln("Validando R"+id);
+        if (expresion != null) {
+            expresion.validarSemanticamente(ambito, s);
+        }
+        if (bloque != null) {
+            bloque.validarSemanticamente(ambito, s);
+        }
+        return OK;
     }
 
     @Override

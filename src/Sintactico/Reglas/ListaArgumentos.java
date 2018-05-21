@@ -3,26 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Sintactico.Reglas;
+
 import Contenedores.NoTerminal;
 import Interfaces.Constantes;
 import Interfaces.ElementoPila;
 import Interfaces.Nodo;
 import Semantico.Semantico;
 import Util.Pila;
+
 /**
  *
  * @author Gonzalez Luna Bryan Josue
  */
-public class ListaArgumentos extends Nodo implements Constantes{
-    private int id=R34;
-    private Nodo listaArgumentos,expresion;
-    public ListaArgumentos(Pila<ElementoPila>p){
+public class ListaArgumentos extends Nodo implements Constantes {
+
+    private int id = R34;
+    private Nodo listaArgumentos, expresion;
+
+    public ListaArgumentos(Pila<ElementoPila> p) {
         p.desapila();
-        listaArgumentos=((NoTerminal)p.desapila()).getNodo();
+        listaArgumentos = ((NoTerminal) p.desapila()).getNodo();
         p.desapila();
-        expresion=((NoTerminal)p.desapila()).getNodo();
+        expresion = ((NoTerminal) p.desapila()).getNodo();
         p.desapila();
         p.desapila();
     }
@@ -34,20 +37,29 @@ public class ListaArgumentos extends Nodo implements Constantes{
 
     @Override
     public String getArbol() {
-        String info=INICIO_LISTA_ARGUMENTOS+NL;
-        if(expresion!=null)info+=expresion.getArbol();
-        if(listaArgumentos!=null)info+=listaArgumentos.getArbol();
-        info+=FIN_LISTA_ARGUMENTOS+NL;
+        String info = INICIO_LISTA_ARGUMENTOS + NL;
+        if (expresion != null) {
+            info += expresion.getArbol();
+        }
+        if (listaArgumentos != null) {
+            info += listaArgumentos.getArbol();
+        }
+        info += FIN_LISTA_ARGUMENTOS + NL;
         return info;
     }
 
     @Override
     public char validarSemanticamente(String ambito, Semantico s) {
-        char tipoExp=' ';
-        if(expresion!=null)tipoExp=expresion.validarSemanticamente(ambito, s);
-        tokenGlobalAux.agregarParametro(tipoExp);
-        if(listaArgumentos!=null)listaArgumentos.validarSemanticamente(ambito, s);
-        return(tipoExp!=' ')?tipoExp:NOT_OK;
+        imprimeln("Validando R"+id);
+        char tipoExp = ' ';
+        if (expresion != null) {
+            tipoExp = expresion.validarSemanticamente(ambito, s);
+        }
+        argumentosGlobales.add(tipoExp);
+        if (listaArgumentos != null) {
+            listaArgumentos.validarSemanticamente(ambito, s);
+        }
+        return tipoExp;
     }
 
     @Override

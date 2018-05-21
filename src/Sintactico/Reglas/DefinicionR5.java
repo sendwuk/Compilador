@@ -43,6 +43,7 @@ public class DefinicionR5 extends Nodo implements Constantes {
 
     @Override
     public char validarSemanticamente(String ambito, Semantico s) {
+        imprimeln("Validando R" + id);
         if (definicionFuncion != null) {
             definicionFuncion.validarSemanticamente(ambito, s);
         }

@@ -13,6 +13,7 @@ import Contenedores.NoTerminal;
 import Contenedores.Terminal;
 import Contenedores.Token;
 import Semantico.Semantico;
+import java.util.ArrayList;
 
 /**
  *
@@ -56,12 +57,17 @@ public class ListaVariables extends Nodo implements Constantes {
 
     @Override
     public void validarSemanticamente(String tipo, String ambito, Semantico s) {
-        if (s.existeVar(idVar,ambito)){
-            s.insertarError(ERROR_VARIABLE_REDEFINIDA,idVar);
-        }else{
-            s.insertarToken(new Token(idVar,tipo,ambito));
+        imprimeln("Validando R"+id);
+        if (s.existeVar(idVar, ambito)) {
+            imprimeln("Si existe la variable "+idVar);
+            s.insertarError(ERROR_VARIABLE_REDEFINIDA, idVar);
+        } else {
+            tokenGlobalAux.setInfo(idVar,tipo, ambito);
+            s.insertarToken(tokenGlobalAux);
         }
-        if(listaVariables!=null)listaVariables.validarSemanticamente(tipo, ambito, s);
+        if (listaVariables != null) {
+            listaVariables.validarSemanticamente(tipo, ambito, s);
+        }
     }
 
     public String getIdVar() {

@@ -3,25 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Sintactico.Reglas;
+
 import Contenedores.Terminal;
 import Interfaces.Constantes;
 import Interfaces.ElementoPila;
 import Interfaces.Nodo;
 import Semantico.Semantico;
 import Util.Pila;
+
 /**
  *
  * @author Gonzalez Luna Bryan Josue
  */
 public class TerminoInt extends Nodo implements Constantes {
-    private int id=R37;
+
+    private int id = R37;
     private String entero;
-    
-    public TerminoInt(Pila<ElementoPila>p){
+
+    public TerminoInt(Pila<ElementoPila> p) {
         p.desapila();
-        entero=((Terminal)p.desapila()).getLexema();
+        entero = ((Terminal) p.desapila()).getLexema();
     }
 
     @Override
@@ -31,14 +33,15 @@ public class TerminoInt extends Nodo implements Constantes {
 
     @Override
     public String getArbol() {
-        String info=INICIO_TERMINO+NL;
-        info+=TAB+"< "+entero+" >"+NL;
-        info+=FIN_TERMINO;
+        String info = INICIO_TERMINO + NL;
+        info += TAB + "< " + entero + " >" + NL;
+        info += FIN_TERMINO;
         return info;
     }
 
     @Override
     public char validarSemanticamente(String ambito, Semantico s) {
+        imprimeln("Validando R"+id);
         return 'i';
     }
 

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Contenedores;
 
 import Interfaces.ElementoPila;
@@ -14,30 +13,32 @@ import Util.Util;
  *
  * @author Gonzalez Luna Bryan Josue
  */
-public class NoTerminal extends ElementoPila{
+public class NoTerminal extends ElementoPila {
+
     String lexema;
     Nodo nodo;
-    
-    public NoTerminal(String lexema,Nodo nodo){
-    this.lexema=lexema;
-    this.nodo=nodo;
+
+    public NoTerminal(String lexema, Nodo nodo) {
+        this.lexema = lexema;
+        this.nodo = nodo;
     }
+
     @Override
     public void mostrar() {
         Util.imprimeln(lexema);
     }
-    public String getLexema(){
+
+    public String getLexema() {
         return lexema;
     }
-    public Nodo getNodo(){
+
+    public Nodo getNodo() {
         return nodo;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return lexema;
     }
-    
-
-  
 
 }

@@ -10,6 +10,7 @@ import Interfaces.Nodo;
 import Interfaces.Constantes;
 import Interfaces.ElementoPila;
 import Contenedores.NoTerminal;
+import Contenedores.Token;
 import Semantico.Semantico;
 
 /**
@@ -22,6 +23,7 @@ public class Programa extends Nodo implements Constantes {
     private Nodo definicion;
 
     public Programa(Pila<ElementoPila> p) {
+        tokenGlobalAux= new Token();
         p.desapila();
         definicion = ((NoTerminal) p.desapila()).getNodo();
     }
@@ -33,15 +35,20 @@ public class Programa extends Nodo implements Constantes {
 
     @Override
     public String getArbol() {
-        String info = INICIO_PROGRAMA +NL;
-        if (definicion != null) info= definicion.getArbol()+info;
-        info = FIN_PROGRAMA +NL+info;
+        String info = INICIO_PROGRAMA + NL;
+        if (definicion != null) {
+            info = definicion.getArbol() + info;
+        }
+        info = FIN_PROGRAMA + NL + info;
         return info;
     }
 
     @Override
-    public char validarSemanticamente(String ambito,Semantico s) {
-        if(definicion!=null)definicion.validarSemanticamente(ambito,s);
+    public char validarSemanticamente(String ambito, Semantico s) {
+        imprimeln("Validando R" + id);
+        if (definicion != null) {
+            definicion.validarSemanticamente(ambito, s);
+        }
         return OK;
     }
 

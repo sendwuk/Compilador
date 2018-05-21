@@ -28,8 +28,9 @@ public class Accion extends ElementoPila {
     public int getAccion() {
         return accion;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return String.valueOf(accion);
     }
 }
