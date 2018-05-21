@@ -13,6 +13,7 @@ import Interfaces.ElementoPila;
 import Interfaces.Nodo;
 import Semantico.Semantico;
 import Util.Pila;
+import java.util.ArrayList;
 
 /**
  *
@@ -56,8 +57,9 @@ public class Parametros extends Nodo implements Constantes {
             imprimeln("Si existe parametros "+idParam);
             s.insertarError(ERROR_PARAMETRO_REDEFINIDO, idParam);
         } else {        
-            tokenGlobalAux.setInfo(idParam,tipoParam, ambito);
+            tokenGlobalAux = new Token(idParam,tipoParam, ambito);
             s.insertarToken(tokenGlobalAux);
+            parametrosGlobales= new ArrayList<>();
             parametrosGlobales.add(tipoParam.charAt(0));
         }
         if (listaParam != null) {
