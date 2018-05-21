@@ -59,12 +59,11 @@ public class Sentencia extends Nodo implements Constantes {
             s.insertarError(ERROR_VARIABLE_NO_DEFINIDA, idSentencia);
         }
         tipoExpresion = expresion.validarSemanticamente(ambito, s);
-        imprimeln("Tipo de expresion a analizar: "+tipoExpresion);
         if (tipoExpresion == s.existeTipo(idSentencia, ambito)
                 || tipoExpresion == s.existeTipo(idSentencia, AMBITO_GLOBAL)) {
             return tipoExpresion;
         } else {
-            imprimeln("Si hay error "+idSentencia+"no coincide");
+            imprimeln("Si hay error "+idSentencia+" no coincide");
             s.insertarError(ERROR_TIPO_NO_COINCIDE, idSentencia);
             return NOT_OK;
         }
