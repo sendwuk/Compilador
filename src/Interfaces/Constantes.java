@@ -190,8 +190,8 @@ public interface Constantes {
     public final String INICIO_EXPRESION = "<Expresion>";
     public final String FIN_EXPRESION = "</Expresion>";
     public final String AMBITO_GLOBAL = "global";
-    public final String TABLA_SIMBOLOS="Tabla simbolos";
-    public final String TABLA_ERRORES="Tabla Errores";
+    public final String TABLA_SIMBOLOS = "Tabla simbolos";
+    public final String TABLA_ERRORES = "Tabla Errores";
     public final char OK = '1';
     public final char NOT_OK = '0';
 }

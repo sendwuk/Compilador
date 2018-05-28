@@ -16,8 +16,8 @@ import java.util.ArrayList;
  */
 public abstract class Nodo extends Util implements Constantes {
 
-    public String ambito;
-    public String tipoGlobal;
+    //public String ambito;
+    //public String tipoGlobal;
     public Token tokenGlobalAux;
     public ArrayList<Character> parametrosGlobales;
     public ArrayList<Character> argumentosGlobales;
@@ -25,6 +25,8 @@ public abstract class Nodo extends Util implements Constantes {
     public abstract int getID();
 
     public abstract String getArbol();
+
+    public abstract String getCodigoASM();
 
     public abstract char validarSemanticamente(String ambito, Semantico s);
 
