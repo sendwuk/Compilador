@@ -7,11 +7,7 @@ package Lexico;
 
 import Interfaces.Constantes;
 import Contenedores.Simbolo;
-import static Util.Util.imprime;
 import java.util.ArrayList;
-import static Util.Util.imprimeln;
-import static Util.Util.imprimeln;
-import static Util.Util.imprimeln;
 
 /**
  *
@@ -48,7 +44,8 @@ public class Lexico implements Constantes {
 
     void error(char c) {
         valido = false;
-        System.err.println("Estado actual " + estado + " Error lexico por el caracter: " + c);
+        System.err.println("Estado actual " + estado
+                + " Error lexico por el caracter: " + c);
     }
 
     void inicializa(Simbolo s, String lexema, int tipo) {
@@ -382,6 +379,7 @@ public class Lexico implements Constantes {
                         case "void":
                         case "int":
                         case "float":
+                        case "string":
                             inicializa(s, simbolo.toString(),
                                     TIPO_DATO);
                             break;
@@ -398,7 +396,7 @@ public class Lexico implements Constantes {
                             inicializa(s, simbolo.toString(), ELSE);
                             break;
                         default:
-                            inicializa(s, simbolo.toString(),
+                            inicializa(s, "_" + simbolo.toString(),
                                     IDENTIFICADOR);
                             break;
                     }
@@ -493,9 +491,12 @@ public class Lexico implements Constantes {
     }
 
     boolean validChar(char c) {
-        return esDigito(c) || esLetra(c) || c == '_' || c == '(' || c == ')' || c == ';' || c == '+' || c == '*'
-                || c == '-' || c == '/' || c == '=' || c == ' ' || c == '\t' || c == '\n'
-                || c == '{' || c == '}' || c == '"' || c == '|' || c == '&' || c == '!';
+        return esDigito(c) || esLetra(c) || c == '_' || c == '(' || c == ')'
+                || c == ';' || esOperadorAdicion(c) || esOperadorMul(c)
+                || esOperadorRelac(c) || esOperadorOr(c) || c == ' '
+                || c == '\t' || c == '\n' || c == '{' || c == '}' || c == '"'
+                || c == '|' || c == '&' || c == ',' || esOperadorAnd(c)
+                || esOperadorNot(c) || esEspacio(c)||c=='=';
     }
 
     boolean esDigito(char c) {
