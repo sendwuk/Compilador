@@ -25,29 +25,33 @@ public class Token implements Constantes {
     }
 
     public Token(String id, String tipo, String ambito) {
-        setInfo(id,tipo,ambito);
+        setInfo(id, tipo, ambito);
     }
 
     public Token(String id, String tipo, String ambito, ArrayList<Character> parametros) {
-        setInfo(id,tipo,ambito,parametros);
+        setInfo(id, tipo, ambito, parametros);
     }
-    public final void setInfo(String id,String tipo,String ambito){
-        this.id=id;
-        this.tipo=tipo;
-        this.ambito=ambito;
+
+    public final void setInfo(String id, String tipo, String ambito) {
+        this.id = id;
+        this.tipo = tipo;
+        this.ambito = ambito;
     }
-    public final void setInfo(String id,String tipo,String ambito,
-            ArrayList<Character>parametros){
-        setInfo(id,tipo,ambito);
-        this.parametros=parametros;
+
+    public final void setInfo(String id, String tipo, String ambito,
+            ArrayList<Character> parametros) {
+        setInfo(id, tipo, ambito);
+        this.parametros = parametros;
     }
 
     public ArrayList<Character> getParametros() {
         return parametros;
     }
+
     public ArrayList<Character> getArgumentos() {
         return argumentos;
     }
+
     public Character getArgumentoEn(int i) {
         if (i >= 0 && i < getCantParametros()) {
             return parametros.get(i);
@@ -65,6 +69,7 @@ public class Token implements Constantes {
     public int getCantParametros() {
         return parametros.size();
     }
+
     public int getCantArgumentos() {
         return parametros.size();
     }
@@ -72,12 +77,14 @@ public class Token implements Constantes {
     public void agregarParametro(char param) {
         parametros.add(param);
     }
-    public void agregarArgumentos(char arg){
+
+    public void agregarArgumentos(char arg) {
         argumentos.add(arg);
     }
-    @Override 
-    public String toString(){
-        return "Id "+id+ " |Tipo: "+tipo+" |Ambito: "+ambito;
+
+    @Override
+    public String toString() {
+        return "Id " + id + " |Tipo: " + tipo + " |Ambito: " + ambito;
     }
 
 }
