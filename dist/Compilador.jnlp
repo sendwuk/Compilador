@@ -8,12 +8,11 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Compilador.jar" size="7862" download="eager" />
-    <jar href="lib\richtextfx-demos-fat-0.7-M2.jar" size="823220" download="eager" />
+    <jar href="Compilador.jar" size="76029" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Compilador" >
     <param name="requiredFXVersion" value="8.0+"/>
   </applet-desc>
-  <jfx:javafx-desc  width="800" height="600" main-class="compilador.Compilador"  name="Compilador" />
+  <jfx:javafx-desc  width="800" height="600" main-class="Main.Main"  name="Compilador" />
   <update check="always"/>
 </jnlp>

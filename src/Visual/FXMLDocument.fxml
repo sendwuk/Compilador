@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="lienzoPrincipal" fx:id="lienzoPrincipal" prefHeight="617.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Visual.VentanaPrincipal">
+    <children>
+        <TextArea fx:id="entradaTxt" layoutX="37.0" layoutY="49.0" prefHeight="330.0" prefWidth="526.0" AnchorPane.bottomAnchor="221.0" AnchorPane.leftAnchor="37.0" AnchorPane.rightAnchor="37.0" AnchorPane.topAnchor="49.0" />
+        <MenuBar layoutX="1.0" layoutY="2.0" prefHeight="25.0" prefWidth="600.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem fx:id="btnClose" mnemonicParsing="false" onAction="#cerrarVentana" text="Close" />
+                  <MenuItem fx:id="itemMenuSave" mnemonicParsing="false" onAction="#guardarEntrada" text="Save code" />
+                  <MenuItem mnemonicParsing="false" onAction="#cargarCodigo" text="Get the last code used" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#eliminarCodigo" text="Delete" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem fx:id="btnAbout" mnemonicParsing="false" onAction="#mostrarMiInfo" text="About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <Button fx:id="btnAnalizaLexico" layoutX="451.0" layoutY="424.0" mnemonicParsing="false" onAction="#analizaLexico" text="Análisis Lexico" />
+        <TextArea fx:id="salidaTxt" layoutX="31.0" layoutY="411.0" prefHeight="168.0" prefWidth="398.0" />
+        <Button fx:id="btnAnalizaSintactico" layoutX="451.0" layoutY="458.0" mnemonicParsing="false" onAction="#analizaSintactico" text="Análisis Sintactico" />
+        <Button fx:id="btnArbol" layoutX="451.0" layoutY="495.0" mnemonicParsing="false" onAction="#analizaArbolSintactico" text="Árbol Sintáctico" />
+        <Button fx:id="btnSemantico" layoutX="451.0" layoutY="535.0" mnemonicParsing="false" onAction="#analizaSemantico" text="Análisis Semántico" />
+      <Button fx:id="btnGeneracionCodigo" layoutX="451.0" layoutY="567.0" mnemonicParsing="false" onAction="#analizaGeneracionCodigo" text="Generación de Código." />
+    </children>
+</AnchorPane>
