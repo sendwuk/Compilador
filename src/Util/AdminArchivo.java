@@ -5,6 +5,7 @@
  */
 package Util;
 
+import Interfaces.Constantes;
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.File;
@@ -17,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author Gonzalez Luna Bryan Josue
  */
-public class AdminArchivo {
+public class AdminArchivo implements Constantes {
 
     private String nombreArchivo;
 
@@ -29,12 +30,16 @@ public class AdminArchivo {
         this.nombreArchivo = nombreArchivo;
     }
 
-    public void crear(String info) {
-        File file = new File(nombreArchivo);
+    public void crear(String info) throws IOException {
         try {
+            File file = new File(nombreArchivo);
+            file.delete();
+            file = new File(nombreArchivo);
             try (FileWriter fw = new FileWriter(file, true)) {
                 fw.write(info);
+                fw.close();
             }
+
         } catch (IOException ex) {
             Logger.
                     getLogger(AdminArchivo.class.getName()).log(Level.SEVERE, null, ex);
@@ -42,12 +47,12 @@ public class AdminArchivo {
     }
 
     public String leer() {
-        String info="",linea;
+        String info = "", linea;
         try {
             FileReader fr = new FileReader(nombreArchivo);
             BufferedReader br = new BufferedReader(fr);
-            while((linea=br.readLine())!=null){
-                info+=linea;
+            while ((linea = br.readLine()) != null) {
+                info += linea + NL;
             }
             br.close();
         } catch (IOException ex) {
