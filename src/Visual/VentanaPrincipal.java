@@ -12,6 +12,7 @@ import Interfaces.Constantes;
 import Interfaces.Nodo;
 import Semantico.Semantico;
 import Sintactico.Sintactico;
+import Util.AdminArchivo;
 import static Util.Util.imprime;
 import java.net.URL;
 import java.util.ArrayList;
@@ -25,8 +26,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import static Util.Util.imprimeln;
-import static Util.Util.imprimeln;
-import static Util.Util.imprimeln;
+import generacionCodigo.GeneradoraCodigo;
+import java.io.IOException;
 
 /**
  *
@@ -54,33 +55,55 @@ public class VentanaPrincipal implements Initializable, Constantes {
     private Button btnArbol;
     @FXML
     private Button btnSemantico;
+    private AdminArchivo adminArchivo;
+    @FXML
+    private Button btnGeneracionCodigo;
+    @FXML
+    private MenuItem itemMenuSave;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         simbolos = new ArrayList<>();
         salida = new StringBuilder();
+        adminArchivo = new AdminArchivo("entrada.lr");
+        entradaTxt.setText(adminArchivo.leer());
 
     }
+    private String testGeneracionCodigo()throws IOException{
+        imprimeln("*************TEST GENERACION DE CODIGO*****************");
+        String entrada= entradaTxt.getText();
+        salidaTxt.setText("Analizando entrada...");
+        adminArchivo.crear(entrada);
+        GeneradoraCodigo g= new GeneradoraCodigo(entrada);
+        return (g.analiza())?
+                "Código Generado en el archivo salida.asm ":"No aceptado";
+    }
 
-    private String testSemantico() {
+    private String testSemantico() throws IOException {
         imprimeln("*************TEST SEMANTICO*****************");
         salidaTxt.setText("Analizando entrada...");
-        Semantico s = new Semantico(entradaTxt.getText());
-        return (s.analiza()) ? "Aceptado"+NL+s.imprimeSimbolos() : s.imprimeErrores();
+        String entrada = entradaTxt.getText();
+        adminArchivo.crear(entrada);
+        Semantico s = new Semantico(entrada);
+        return (s.analiza()) ? "Aceptado" + NL + s.imprimeSimbolos() : s.imprimeErrores();
     }
 
-    private String testSintactico() {
+    private String testSintactico() throws IOException {
         imprimeln("*************TEST SINTACTICO*****************");
         salidaTxt.setText("Analizando entrada...");
-        Sintactico s = new Sintactico(entradaTxt.getText());
+        String entrada = entradaTxt.getText();
+        adminArchivo.crear(entrada);
+        Sintactico s = new Sintactico(entrada);
         return (s.analiza()) ? "Aceptado" : "No Aceptado";
     }
 
-    private String testSintacticoArbol() {
+    private String testSintacticoArbol() throws IOException {
         imprimeln("*************TEST SINTACTICO ÁRBOL*****************");
         salidaTxt.setText("Analizando entrada...");
         Nodo grover;
-        Sintactico s = new Sintactico(entradaTxt.getText());
+        String entrada = entradaTxt.getText();
+        adminArchivo.crear(entrada);
+        Sintactico s = new Sintactico(entrada);
         grover = s.analizaArbol();
         if (grover != null) {
             return grover.getArbol();
@@ -89,8 +112,10 @@ public class VentanaPrincipal implements Initializable, Constantes {
 
     }
 
-    private String testLexico() {
-        Lexico l = new Lexico(entradaTxt.getText());
+    private String testLexico() throws IOException {
+        String entrada = entradaTxt.getText();
+        adminArchivo.crear(entrada);
+        Lexico l = new Lexico(entrada);
         Simbolo actual;
         do {
             imprimeln("*************TEST LEXICO*****************");
@@ -106,30 +131,36 @@ public class VentanaPrincipal implements Initializable, Constantes {
     }
 
     @FXML
-    private void analizaLexico(ActionEvent event) {
+    private void analizaLexico(ActionEvent event) throws IOException {
         salidaTxt.setText(" ");
         String info = testLexico();
         salidaTxt.setText(info);
     }
 
     @FXML
-    private void analizaSintactico(ActionEvent event) {
+    private void analizaSintactico(ActionEvent event) throws IOException {
         salidaTxt.setText(null);
         String info = testSintactico();
         salidaTxt.setText(info);
     }
 
     @FXML
-    private void analizaArbolSintactico(ActionEvent event) {
+    private void analizaArbolSintactico(ActionEvent event) throws IOException {
         salidaTxt.setText(null);
         String info = testSintacticoArbol();
         salidaTxt.setText(info);
     }
 
     @FXML
-    private void analizaSemantico(ActionEvent event) {
+    private void analizaSemantico(ActionEvent event) throws IOException {
         salidaTxt.setText(null);
         String info = testSemantico();
+        salidaTxt.setText(info);
+    }
+      @FXML
+    private void analizaGeneracionCodigo(ActionEvent event) throws IOException {
+        salidaTxt.setAccessibleHelp(null);
+        String info=testGeneracionCodigo();
         salidaTxt.setText(info);
     }
 
@@ -140,7 +171,25 @@ public class VentanaPrincipal implements Initializable, Constantes {
 
     @FXML
     private void mostrarMiInfo(ActionEvent event) {
-
+        String info="Elaborado por. "+NL+"Bryan Josue Gonzalez Luna";
+        entradaTxt.setText(info);
     }
+
+    @FXML
+    private void guardarEntrada(ActionEvent event) throws IOException {
+        adminArchivo.crear(entradaTxt.getText());
+    }
+
+    @FXML
+    private void eliminarCodigo(ActionEvent event) {
+        entradaTxt.setText("");
+    }
+
+    @FXML
+    private void cargarCodigo(ActionEvent event) {
+        entradaTxt.setText(adminArchivo.leer());
+    }
+
+  
 
 }
