@@ -23,7 +23,7 @@ public class Programa extends Nodo implements Constantes {
     private Nodo definicion;
 
     public Programa(Pila<ElementoPila> p) {
-        tokenGlobalAux= new Token();
+        tokenGlobalAux = new Token();
         p.desapila();
         definicion = ((NoTerminal) p.desapila()).getNodo();
     }
@@ -55,6 +55,15 @@ public class Programa extends Nodo implements Constantes {
     @Override
     public void validarSemanticamente(String tipo, String ambito, Semantico s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCodigoASM() {
+        String codigo = "";
+        if (definicion != null) {
+            codigo += definicion.getCodigoASM();
+        }
+        return codigo;
     }
 
 }

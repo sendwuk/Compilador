@@ -51,4 +51,11 @@ public class ExpresionTermino extends Nodo implements Constantes {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public String getCodigoASM() {
+        String info="";
+        if(termino!=null)info+=termino.getCodigoASM();
+        return info;
+    }
+
 }

@@ -12,6 +12,7 @@ import Interfaces.ElementoPila;
 import Interfaces.Nodo;
 import Semantico.Semantico;
 import Util.Pila;
+import java.util.StringTokenizer;
 
 /**
  *
@@ -58,7 +59,7 @@ public class SentenciaWhile extends Nodo implements Constantes {
 
     @Override
     public char validarSemanticamente(String ambito, Semantico s) {
-        imprimeln("Validando R"+id);
+        imprimeln("Validando R" + id);
         if (expresion != null) {
             expresion.validarSemanticamente(ambito, s);
         }
@@ -71,6 +72,31 @@ public class SentenciaWhile extends Nodo implements Constantes {
     @Override
     public void validarSemanticamente(String tipo, String ambito, Semantico s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCodigoASM() {
+        String etiquetaInicio = "_inicio_while_", exp = "", bloq = "",
+                etiquetaFin = "_fin_while", info = "", izq, der, salto;
+        StringTokenizer st;
+        info += etiquetaInicio + ":" + NL;
+        if (expresion != null) {
+            exp = expresion.getCodigoASM();
+        }
+        st= new StringTokenizer(exp,"|");
+        izq=st.nextToken();
+        salto=st.nextToken();
+        der=st.nextToken();
+      
+        info += "cmp " + izq + ", " + der + NL;
+        info += salto + " " + etiquetaFin + NL;
+        if (bloque != null) {
+            bloq = bloque.getCodigoASM();
+        }
+        info += bloq + NL;
+        info += "jmp " + etiquetaInicio + NL;
+        info += etiquetaFin + ":" + NL;
+        return info;
     }
 
 }

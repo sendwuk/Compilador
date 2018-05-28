@@ -7,6 +7,7 @@ package Sintactico.Reglas;
 
 import Contenedores.NoTerminal;
 import Contenedores.Terminal;
+import Contenedores.Token;
 import Interfaces.Constantes;
 import Interfaces.ElementoPila;
 import Interfaces.Nodo;
@@ -57,18 +58,23 @@ public class ListaParametros extends Nodo implements Constantes {
 
     @Override
     public void validarSemanticamente(String tipo, String ambito, Semantico s) {
-        imprimeln("Validando R"+id);
+        imprimeln("Validando R" + id);
         if (s.existeVar(idParam, ambito)) {
-            imprimeln("Si existe "+idParam);
+            imprimeln("Si existe " + idParam);
             s.insertarError(ERROR_PARAMETRO_REDEFINIDO, idParam);
         } else {
             parametrosGlobales.add(tipo.charAt(0));
-            tokenGlobalAux.setInfo(idParam, tipo, ambito);
+            tokenGlobalAux = new Token(idParam, tipo, ambito);
             s.insertarToken(tokenGlobalAux);
         }
         if (listaParam != null) {
             listaParam.validarSemanticamente(tipo, ambito, s);
         }
+    }
+
+    @Override
+    public String getCodigoASM() {
+        return "Pendiente Lista Parametros id " + id;
     }
 
 }

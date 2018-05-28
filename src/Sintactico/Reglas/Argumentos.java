@@ -49,7 +49,7 @@ public class Argumentos extends Nodo implements Constantes {
 
     @Override
     public char validarSemanticamente(String ambito, Semantico s) {
-        imprimeln("Validando R"+id);
+        imprimeln("Validando R" + id);
         char tipoExp = ' ';
         if (expresion != null) {
             tipoExp = expresion.validarSemanticamente(ambito, s);
@@ -65,6 +65,18 @@ public class Argumentos extends Nodo implements Constantes {
     @Override
     public void validarSemanticamente(String tipo, String ambito, Semantico s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCodigoASM() {
+        String codigo = "";
+        if (expresion != null) {
+            codigo += expresion.getCodigoASM();
+        }
+        if (listaArgumentos != null) {
+            codigo += listaArgumentos.getCodigoASM();
+        }
+        return codigo;
     }
 
 }

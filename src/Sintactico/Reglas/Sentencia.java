@@ -52,10 +52,10 @@ public class Sentencia extends Nodo implements Constantes {
 
     @Override
     public char validarSemanticamente(String ambito, Semantico s) {
-        imprimeln("Validando R"+id);
+        imprimeln("Validando R" + id);
         char tipoExpresion;
         if (!s.existeVar(idSentencia, ambito) && !s.existeVar(idSentencia, AMBITO_GLOBAL)) {
-            imprimeln("Si hay error "+idSentencia+" no declara");
+            imprimeln("Si hay error " + idSentencia + " no declara");
             s.insertarError(ERROR_VARIABLE_NO_DEFINIDA, idSentencia);
         }
         tipoExpresion = expresion.validarSemanticamente(ambito, s);
@@ -63,7 +63,7 @@ public class Sentencia extends Nodo implements Constantes {
                 || tipoExpresion == s.existeTipo(idSentencia, AMBITO_GLOBAL)) {
             return tipoExpresion;
         } else {
-            imprimeln("Si hay error "+idSentencia+" no coincide");
+            imprimeln("Si hay error " + idSentencia + " no coincide");
             s.insertarError(ERROR_TIPO_NO_COINCIDE, idSentencia);
             return NOT_OK;
         }
@@ -73,6 +73,14 @@ public class Sentencia extends Nodo implements Constantes {
     @Override
     public void validarSemanticamente(String tipo, String ambito, Semantico s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCodigoASM() {
+        String info="";
+        if(expresion!=null)info+="push "+expresion.getCodigoASM()+NL;
+        info+="pop "+idSentencia+NL;
+        return info;
     }
 
 }

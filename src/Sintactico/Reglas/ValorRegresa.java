@@ -43,9 +43,9 @@ public class ValorRegresa extends Nodo implements Constantes {
 
     @Override
     public char validarSemanticamente(String ambito, Semantico s) {
-        imprimeln("Validando R"+id);
+        imprimeln("Validando R" + id);
         if (expresion != null) {
-           return expresion.validarSemanticamente(ambito, s);
+            return expresion.validarSemanticamente(ambito, s);
         }
         return NOT_OK;
     }
@@ -53,6 +53,16 @@ public class ValorRegresa extends Nodo implements Constantes {
     @Override
     public void validarSemanticamente(String tipo, String ambito, Semantico s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCodigoASM() {
+        String info = "";
+        if (expresion != null) {
+            info += expresion.getCodigoASM();
+        }
+        return info;
+
     }
 
 }

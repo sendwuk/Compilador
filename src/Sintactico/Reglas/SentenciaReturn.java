@@ -50,13 +50,13 @@ public class SentenciaReturn extends Nodo implements Constantes {
 
     @Override
     public char validarSemanticamente(String ambito, Semantico s) {
-        imprimeln("Validando R"+id);
+        imprimeln("Validando R" + id);
         char valor = ' ';
         if (valorRetorno != null) {
             valor = valorRetorno.validarSemanticamente(ambito, s);
         }
         if (valor != s.existeTipo(ambito, AMBITO_GLOBAL)) {
-            imprimeln("Si hay error "+valor+"no coincide con el valor de retorno");
+            imprimeln("Si hay error " + valor + "no coincide con el valor de retorno");
             s.insertarError(ERROR_TIPO_NO_COINCIDE, miRetorno);
             return NOT_OK;
         }
@@ -66,6 +66,11 @@ public class SentenciaReturn extends Nodo implements Constantes {
     @Override
     public void validarSemanticamente(String tipo, String ambito, Semantico s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCodigoASM() {
+        return "Pendiente Sentencia Return id " + id;
     }
 
 }

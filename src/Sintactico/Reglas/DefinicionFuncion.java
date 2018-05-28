@@ -59,17 +59,17 @@ public class DefinicionFuncion extends Nodo implements Constantes {
 
     @Override
     public char validarSemanticamente(String ambito, Semantico s) {
-        imprimeln("Validando R"+id);
+        imprimeln("Validando R" + id);
         if (s.existeVar(idFunc, ambito)) {
-            imprimeln("Si existe "+idFunc);
+            imprimeln("Si existe " + idFunc);
             s.insertarError(ERROR_FUNCION_REDEFINIDA, idFunc);
-        }else{
-            parametrosGlobales= new ArrayList<>();
+        } else {
+            parametrosGlobales = new ArrayList<>();
         }
         if (parametro != null) {
             parametro.validarSemanticamente(idFunc, s);
         }
-        tokenGlobalAux= new Token(idFunc,tipoFunc,ambito,parametrosGlobales);
+        tokenGlobalAux = new Token(idFunc, tipoFunc, ambito, parametrosGlobales);
         s.insertarToken(tokenGlobalAux);
         if (bloqueFunc != null) {
             bloqueFunc.validarSemanticamente(idFunc, s);
@@ -86,6 +86,15 @@ public class DefinicionFuncion extends Nodo implements Constantes {
     @Override
     public int getID() {
         return id;
+    }
+
+    @Override
+    public String getCodigoASM() {
+        String info=";"+idFunc+":"+NL;
+        if(parametro!=null)info+=parametro.getCodigoASM();
+        if(bloqueFunc!=null)info+=bloqueFunc.getCodigoASM();
+        info+=";_fin"+idFunc+":"+NL;
+        return info; 
     }
 
 }

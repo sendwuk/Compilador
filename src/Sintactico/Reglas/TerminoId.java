@@ -41,18 +41,22 @@ public class TerminoId extends Nodo implements Constantes {
 
     @Override
     public char validarSemanticamente(String ambito, Semantico s) {
-        imprimeln("Validando R"+id);
-        if (!s.existeVar(datoId, ambito) && !s.existeVar(datoId,AMBITO_GLOBAL)) {
-            imprimeln("Error no existe "+datoId);
+        imprimeln("Validando R" + id);
+        if (!s.existeVar(datoId, ambito) && !s.existeVar(datoId, AMBITO_GLOBAL)) {
+            imprimeln("Error no existe " + datoId);
             s.insertarError(ERROR_VARIABLE_NO_DEFINIDA, datoId);
         }
-        imprimeln("Dato id "+datoId);
         return s.existeTipo(datoId, ambito);
     }
 
     @Override
     public void validarSemanticamente(String tipo, String ambito, Semantico s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCodigoASM() {
+        return datoId;
     }
 
 }

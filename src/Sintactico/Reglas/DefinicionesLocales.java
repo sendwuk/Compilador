@@ -48,7 +48,7 @@ public class DefinicionesLocales extends Nodo implements Constantes {
 
     @Override
     public char validarSemanticamente(String ambito, Semantico s) {
-        imprimeln("Validando R"+id);
+        imprimeln("Validando R" + id);
         if (defLocal != null) {
             defLocal.validarSemanticamente(ambito, s);
         }
@@ -61,6 +61,18 @@ public class DefinicionesLocales extends Nodo implements Constantes {
     @Override
     public void validarSemanticamente(String tipo, String ambito, Semantico s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCodigoASM() {
+        String info = "";
+        if (defLocal != null) {
+            info += defLocal.getCodigoASM();
+        }
+        if (defLocales != null) {
+            info += defLocales.getCodigoASM();
+        }
+        return info;
     }
 
 }

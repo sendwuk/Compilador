@@ -53,7 +53,7 @@ public class ExpresionOpRelac extends Nodo implements Constantes {
 
     @Override
     public char validarSemanticamente(String ambito, Semantico s) {
-        imprimeln("Validando R"+id);
+        imprimeln("Validando R" + id);
         char izq, der;
         izq = exp1.validarSemanticamente(ambito, s);
         der = exp2.validarSemanticamente(ambito, s);
@@ -69,5 +69,36 @@ public class ExpresionOpRelac extends Nodo implements Constantes {
     public void validarSemanticamente(String tipo, String ambito, Semantico s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public String getCodigoASM() {
+        String izq = "",der = "",salto;
+        if (exp1 != null) {
+            izq = exp1.getCodigoASM();
+        }
+        if (exp2 != null) {
+            der = exp2.getCodigoASM();
+        }
+        switch (opRelac) {
+            case "<":
+                salto = "jnl";
+                break;
+            case ">":
+                salto = "jng";
+                break;
+            case "<=":
+                salto = "jnle";
+                break;
+            case ">=":
+                salto = "jnge";
+                break;
+            default:
+                salto = "jmp";
+                break;
+        }
+
+        return izq+"|"+salto+"|"+der;
+    }
+  
 
 }

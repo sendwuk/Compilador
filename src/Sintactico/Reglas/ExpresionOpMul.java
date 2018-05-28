@@ -53,7 +53,7 @@ public class ExpresionOpMul extends Nodo implements Constantes {
 
     @Override
     public char validarSemanticamente(String ambito, Semantico s) {
-        imprimeln("Validando R"+id);
+        imprimeln("Validando R" + id);
         char izq, der;
         izq = exp1.validarSemanticamente(ambito, s);
         der = exp2.validarSemanticamente(ambito, s);
@@ -70,6 +70,23 @@ public class ExpresionOpMul extends Nodo implements Constantes {
     @Override
     public void validarSemanticamente(String tipo, String ambito, Semantico s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCodigoASM() {
+        String info="";
+        if(exp1!=null)info+=exp1.getCodigoASM()+NL;
+        if(exp2!=null)info+="push "+exp2.getCodigoASM()+NL;
+        info+="pop ebx"+NL;
+        info+="pop eax"+NL;
+        if(opMul.equals("*"))
+            info+="imul ebx"+NL;
+        else{
+            info+="xor edx, edx"+NL;
+            info+="idiv  ebx"+NL;
+        }
+        info+="push eax";
+        return info;
     }
 
 }

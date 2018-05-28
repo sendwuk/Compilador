@@ -64,4 +64,16 @@ public class Definiciones extends Nodo implements Constantes {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public String getCodigoASM() {
+        String info = "";
+        if (definicion != null) {
+            info += definicion.getCodigoASM();
+        }
+        if (definiciones != null) {
+            info += definiciones.getCodigoASM();
+        }
+        return info;
+    }
+
 }

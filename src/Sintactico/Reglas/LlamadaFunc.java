@@ -71,7 +71,7 @@ public class LlamadaFunc extends Nodo implements Constantes {
                 for (int i = 0; i < cantParametros; i++) {
                     if (!Objects.equals(
                             s.getToken(identificador, ambito).getParametroEn(i),
-                           argumentosGlobales.get(i))) {
+                            argumentosGlobales.get(i))) {
                         s.insertarError(ERROR_ARGUMENTOS_NO_COINCIDE, identificador);
                     }
                 }
@@ -83,6 +83,11 @@ public class LlamadaFunc extends Nodo implements Constantes {
     @Override
     public void validarSemanticamente(String tipo, String ambito, Semantico s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCodigoASM() {
+        return "Pendiente LlamadaFunc id " + id;
     }
 
 }

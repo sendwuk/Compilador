@@ -53,12 +53,12 @@ public class DefinicionVariable extends Nodo implements Constantes {
 
     @Override
     public char validarSemanticamente(String ambito, Semantico s) {
-        imprimeln("Validando R"+id);
+        imprimeln("Validando R" + id);
         if (s.existeVar(idVar, ambito)) {
-           imprimeln("Si existe la variable "+idVar);
-            s.insertarError(ERROR_VARIABLE_REDEFINIDA,idVar);
+            imprimeln("Si existe la variable " + idVar);
+            s.insertarError(ERROR_VARIABLE_REDEFINIDA, idVar);
         } else {
-            tokenGlobalAux= new Token(idVar,tipoVar, ambito);
+            tokenGlobalAux = new Token(idVar, tipoVar, ambito);
             s.insertarToken(tokenGlobalAux);
         }
         if (listaVariables != null) {
@@ -78,6 +78,17 @@ public class DefinicionVariable extends Nodo implements Constantes {
 
     public String getTipoVar() {
         return tipoVar;
+    }
+
+    @Override
+    public String getCodigoASM() {
+        String info="";
+        /*No retornamos el id de la variable ya que dicha variable
+        sera guardada en la tabla de simbolos y segun nuestr logica
+        dicha variable seria declarada cuando el programa leyera la tabla
+        de simbolos es por eso que no retornamos nada*/
+        if(listaVariables!=null)info+=listaVariables.getCodigoASM();
+        return info;
     }
 
 }
