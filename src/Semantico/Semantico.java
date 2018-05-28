@@ -55,18 +55,16 @@ public class Semantico implements Constantes {
     }
 
     public char existeTipo(String id, String ambito) {
-        imprimeln("Exite tipo buscando id "+id+" Ambito "+ambito);
-        int cantSimbolos=cantSimbolos();
-       if(cantSimbolos()>0){
-           for(int i=0,j=cantSimbolos;i<j;i++){
-               if(tablaSimbolos.get(i).id.equals(id)&&
-                       tablaSimbolos.get(i).ambito.equals(ambito)){
-                   imprimeln("Encontrado");
-                   return tablaSimbolos.get(i).tipo.charAt(0);
-               }
-           }
-       }
-       return NOT_OK;
+        int cantSimbolos = cantSimbolos();
+        if (cantSimbolos() > 0) {
+            for (int i = 0, j = cantSimbolos; i < j; i++) {
+                if (tablaSimbolos.get(i).id.equals(id)
+                        && tablaSimbolos.get(i).ambito.equals(ambito)) {
+                    return tablaSimbolos.get(i).tipo.charAt(0);
+                }
+            }
+        }
+        return NOT_OK;
     }
 
     public boolean insertarToken(Token tk) {
@@ -127,16 +125,17 @@ public class Semantico implements Constantes {
     }
 
     public String imprimeErrores() {
-        String info =TABLA_ERRORES+NL;
+        String info = TABLA_ERRORES + NL;
         for (int i = 0, j = cantErrores(); i < j; i++) {
             info += tablaErrores.get(i).toString() + NL;
         }
         return info;
     }
-    public String imprimeSimbolos(){
-        String info=TABLA_SIMBOLOS+NL;
-        for(int i=0,j=cantSimbolos();i<j;i++){
-            info+=tablaSimbolos.get(i).toString()+NL;
+
+    public String imprimeSimbolos() {
+        String info = TABLA_SIMBOLOS + NL;
+        for (int i = 0, j = cantSimbolos(); i < j; i++) {
+            info += tablaSimbolos.get(i).toString() + NL;
         }
         return info;
     }
